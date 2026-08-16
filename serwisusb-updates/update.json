@@ -1,9 +1,9 @@
 {
-  "version": "2026.99.0",
+  "version": "2026.10.22",
   "channel": "stable",
   "release_date": "2026-08-16",
-  "release_notes": "TEST SERWISUSB - sprawdzenie wykrywania aktualizacji przez serwer HTTPS.",
-  "package_file": "SerwisUSB_2026_10_99_Setup.exe",
-  "notes": "Wersja testowa. Sluzy tylko do sprawdzenia wykrywania aktualizacji.",
-  "url": "https://example.invalid/SerwisUSB_2026_10_99_Setup.exe"
+  "release_notes": "TEST: starsza wersja ma wykryc nowa aktualizacje przez HTTPS.",
+  "package_file": "SerwisUSB_2026_10_22_Setup.exe",
+  "notes": "TEST WYKRYWANIA. Nie klikaj Aktualizuj - pakiet instalacyjny nie jest jeszcze publikowany.",
+  "url": "https://example.invalid/SerwisUSB_2026_10_22_Setup.exe"
 }
