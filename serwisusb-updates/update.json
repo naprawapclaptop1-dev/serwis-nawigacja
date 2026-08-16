@@ -1,9 +1,9 @@
 {
-  "version": "2026.10.22",
+  "version": "2026.10.27",
   "channel": "stable",
-  "release_date": "2026-08-16",
-  "release_notes": "TEST: starsza wersja ma wykryc nowa aktualizacje przez HTTPS.",
-  "package_file": "SerwisUSB_2026_10_22_Setup.exe",
-  "notes": "TEST WYKRYWANIA. Nie klikaj Aktualizuj - pakiet instalacyjny nie jest jeszcze publikowany.",
-  "url": "https://example.invalid/SerwisUSB_2026_10_22_Setup.exe"
+  "release_date": "2026-08-17",
+  "release_notes": "Wydanie stabilne 2026.10.27. Aktualizacje przez HTTPS oraz poprawione uruchamianie aplikacji.",
+  "package_file": "SerwisUSB_2026_10_27_Setup.exe",
+  "notes": "Instalator aktualizacji zostanie podłączony po opublikowaniu pliku EXE. Nie używaj nieistniejącego adresu ani example.invalid.",
+  "url": ""
 }
