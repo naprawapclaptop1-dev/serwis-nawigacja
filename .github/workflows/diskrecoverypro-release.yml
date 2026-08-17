@@ -12,14 +12,15 @@ jobs:
   publish-diskrecoverypro:
     runs-on: ubuntu-latest
     steps:
-      - name: Download update package from public OneDrive share API
+      - name: Download current update package
         shell: bash
         run: |
           set -euo pipefail
-          url='https://api.onedrive.com/v1.0/shares/u!aHR0cHM6Ly9zZXJ3aXMxOTg4LW15LnNoYXJlcG9pbnQuY29tLzp1Oi9nL3BlcnNvbmFsL25hcHJhd2FwY2xhcHRvcF9zZXJ3aXMxOTg4X29ubWljcm9zb2Z0X2NvbS9JUUJUWC1jcm9jRFhRcUVQZU1GQzQzeUxBUkpMa2Q4ZlFvSTF6Sjl4aGxSdDM4OA/root/content'
-          curl -L --retry 5 --retry-all-errors --retry-delay 3 --fail --user-agent 'DiskRecoveryPRO-ReleaseBot/1.0' "$url" -o DiskRecoveryPRO_Update.zip
+          url='https://sdmntprwestus3.oaiusercontent.com/files/00000000-a5d8-81fd-959e-631b9b73dc5b/raw?se=2026-08-17T20%3A29%3A27Z&sp=r&sv=2026-02-06&sr=b&scid=ac43cef8-c156-5b29-882c-0298109f2bdf&skoid=5e713cdb-766b-475e-a3ca-8adb6cf99aa0&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-17T12%3A10%3A35Z&ske=2026-08-18T12%3A10%3A35Z&sks=b&skv=2026-02-06&sig=iRwNjr%2Byc6Tn3TWLQ2KnjKjJPlmDqPRYRyduVCfxj7o%3D'
+          curl -L --retry 3 --retry-delay 1 --fail --user-agent 'DiskRecoveryPRO-ReleaseBot/1.0' "$url" -o DiskRecoveryPRO_Update.zip
           test -s DiskRecoveryPRO_Update.zip
           unzip -t DiskRecoveryPRO_Update.zip >/dev/null
+          sha256sum DiskRecoveryPRO_Update.zip
 
       - name: Publish GitHub release v1.4.8
         env:
@@ -27,16 +28,48 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if gh release view v1.4.8 >/dev/null 2>&1; then
-            echo 'Release v1.4.8 already exists.'
+          if gh release view v1.4.8 -R '${{ github.repository }}' >/dev/null 2>&1; then
+            gh release upload v1.4.8 DiskRecoveryPRO_Update.zip -R '${{ github.repository }}' --clobber
           else
-            gh release create v1.4.8 DiskRecoveryPRO_Update.zip \
+            gh release create v1.4.8 DiskRecoveryPRO_Update.zip -R '${{ github.repository }}' \
               --title 'Disk Recovery PRO v1.4.8' \
-              --notes 'Automatyczna aktualizacja Disk Recovery PRO. Paczka testowa 1.4.8.' \
+              --notes 'Automatyczna aktualizacja Disk Recovery PRO v1.4.8.' \
               --latest
+          fi
+
+      - name: Publish latest.json
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          SHA=$(sha256sum DiskRecoveryPRO_Update.zip | awk '{print $1}')
+          cat > latest.json <<EOF
+          {
+            "version": "1.4.8",
+            "channel": "stable",
+            "release_notes": "Disk Recovery PRO v1.4.8",
+            "downloadUrl": "https://github.com/${{ github.repository }}/releases/download/v1.4.8/DiskRecoveryPRO_Update.zip",
+            "sha256": "$SHA"
+          }
+          EOF
+          if gh api repos/${{ github.repository }}/contents/diskrecoverypro-updates/latest.json >/tmp/current.json 2>/dev/null; then
+            CURRENT_SHA=$(python3 -c "import json; print(json.load(open('/tmp/current.json'))['sha'])")
+            B64=$(base64 -w0 latest.json)
+            gh api --method PUT repos/${{ github.repository }}/contents/diskrecoverypro-updates/latest.json \
+              -f message='Publish Disk Recovery PRO latest manifest' \
+              -f content="$B64" \
+              -f sha="$CURRENT_SHA" \
+              -f branch='main'
+          else
+            B64=$(base64 -w0 latest.json)
+            gh api --method PUT repos/${{ github.repository }}/contents/diskrecoverypro-updates/latest.json \
+              -f message='Publish Disk Recovery PRO latest manifest' \
+              -f content="$B64" \
+              -f branch='main'
           fi
 
       - name: Show release URL
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release view v1.4.8 --json url -q .url
+        run: gh release view v1.4.8 -R '${{ github.repository }}' --json name,tagName,url,assets
