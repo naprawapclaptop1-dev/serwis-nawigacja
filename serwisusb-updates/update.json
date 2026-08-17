@@ -2,10 +2,10 @@
   "version": "2026.10.28",
   "channel": "stable",
   "release_date": "2026-08-17",
-  "release_notes": "SerwisUSB 2026.10.28 - stabilny instalator i automatyczna aktualizacja przez HTTPS.",
+  "release_notes": "SerwisUSB 2026.10.28 - stabilny instalator i automatyczna aktualizacja.",
   "package_file": "SerwisUSB_2026_10_28_Setup.exe",
-  "notes": "Prawdziwy instalator 2026.10.28. Automatyczna aktualizacja wymaga tylko internetu.",
-  "url": "https://serwis1988-my.sharepoint.com/:u:/g/personal/naprawapclaptop_serwis1988_onmicrosoft_com/IQC7ADb_7VvoQJqbcYSUvyK6AfJM24VmB_JjCE4MzCpp7SE",
+  "notes": "Pobieranie instalatora przez przeglądarkę. Jeśli bezpośredni plik jest chwilowo ograniczony przez SharePoint, otwórz folder aktualizacji i pobierz plik ręcznie.",
+  "url": "https://serwis1988-my.sharepoint.com/:f:/g/personal/naprawapclaptop_serwis1988_onmicrosoft_com/IgBuQbbwHr-URZVtAakBiR7VAcsOn7HHMORnxgsrKm_0TTc",
   "sha256": "b9f4a1a7b1d9c22c06ccab0e7d32505188feb5e9921576d9564e5f25ffd26dfc",
   "size": 56191587
 }
