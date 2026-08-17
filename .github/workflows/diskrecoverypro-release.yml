@@ -1,0 +1,42 @@
+name: Disk Recovery PRO release
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish-diskrecoverypro:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download update package from OneDrive
+        shell: bash
+        run: |
+          set -euo pipefail
+          url='https://serwis1988-my.sharepoint.com/personal/naprawapclaptop_serwis1988_onmicrosoft_com/_layouts/15/download.aspx?SourceUrl=https%3A%2F%2Fserwis1988-my.sharepoint.com%2Fpersonal%2Fnaprawapclaptop_serwis1988_onmicrosoft_com%2FDocuments%2FDocuments%2Faktualizatir%2520pakiet%2520serwis%20word%2Fbaza%25201%2FDiskRecoveryPRO_Update_1.4.8.zip'
+          curl -L --retry 4 --retry-delay 3 --fail --user-agent 'DiskRecoveryPRO-ReleaseBot/1.0' "$url" -o DiskRecoveryPRO_Update.zip
+          test -s DiskRecoveryPRO_Update.zip
+          unzip -t DiskRecoveryPRO_Update.zip >/dev/null
+
+      - name: Publish GitHub release v1.4.8
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if gh release view v1.4.8 >/dev/null 2>&1; then
+            echo 'Release v1.4.8 already exists.'
+          else
+            gh release create v1.4.8 DiskRecoveryPRO_Update.zip \
+              --title 'Disk Recovery PRO v1.4.8' \
+              --notes 'Automatyczna aktualizacja Disk Recovery PRO. Paczka testowa 1.4.8.' \
+              --latest
+          fi
+
+      - name: Show release URL
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release view v1.4.8 --json url -q .url
