@@ -1,7 +1,7 @@
 {
   "version": "1.4.8",
   "channel": "stable",
-  "release_notes": "Disk Recovery PRO 1.4.8 - test automatycznej aktualizacji.",
-  "downloadUrl": "https://serwis1988-my.sharepoint.com/personal/naprawapclaptop_serwis1988_onmicrosoft_com/_layouts/15/download.aspx?SourceUrl=https%3A%2F%2Fserwis1988-my.sharepoint.com%2Fpersonal%2Fnaprawapclaptop_serwis1988_onmicrosoft_com%2FDocuments%2FDocuments%2Faktualizatir%2520pakiet%2520serwis%2520word%2Fbaza%25201%2FDiskRecoveryPRO_Update_1.4.8.zip",
+  "release_notes": "Disk Recovery PRO v1.4.8",
+  "downloadUrl": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.4.8/DiskRecoveryPRO_Update.zip",
   "sha256": "1e696dd751a7955985b48fca791c7cf0c5618f6e2424db86f6b6490a508ccdc7"
 }
