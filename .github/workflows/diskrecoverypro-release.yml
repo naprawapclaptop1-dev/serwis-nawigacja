@@ -59,6 +59,7 @@ jobs:
           set -euo pipefail
           SHA256="$(cat artifacts/sha256.txt)"
           DOWNLOAD_URL="https://github.com/$REPOSITORY/releases/download/$TAG/DiskRecoveryPRO_Update.zip"
+          export DOWNLOAD_URL SHA256
           python3 - <<'PY'
           import json, os
           payload = {
