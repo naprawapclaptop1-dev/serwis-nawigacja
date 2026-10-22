@@ -1,75 +1,87 @@
-name: Disk Recovery PRO release
+name: Disk Recovery PRO release manifest
 
 on:
-  push:
-    branches: [ main ]
+  release:
+    types: [published]
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  publish-diskrecoverypro:
+  publish-diskrecoverypro-manifest:
     runs-on: ubuntu-latest
     steps:
-      - name: Download current update package
-        shell: bash
-        run: |
-          set -euo pipefail
-          url='https://sdmntprwestus3.oaiusercontent.com/files/00000000-a5d8-81fd-959e-631b9b73dc5b/raw?se=2026-08-17T20%3A29%3A27Z&sp=r&sv=2026-02-06&sr=b&scid=ac43cef8-c156-5b29-882c-0298109f2bdf&skoid=5e713cdb-766b-475e-a3ca-8adb6cf99aa0&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-17T12%3A10%3A35Z&ske=2026-08-18T12%3A10%3A35Z&sks=b&skv=2026-02-06&sig=iRwNjr%2Byc6Tn3TWLQ2KnjKjJPlmDqPRYRyduVCfxj7o%3D'
-          curl -L --retry 3 --retry-delay 1 --fail --user-agent 'DiskRecoveryPRO-ReleaseBot/1.0' "$url" -o DiskRecoveryPRO_Update.zip
-          test -s DiskRecoveryPRO_Update.zip
-          unzip -t DiskRecoveryPRO_Update.zip >/dev/null
-          sha256sum DiskRecoveryPRO_Update.zip
-
-      - name: Publish GitHub release v1.4.8
+      - name: Determine release tag
+        id: release
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
-          if gh release view v1.4.8 -R '${{ github.repository }}' >/dev/null 2>&1; then
-            gh release upload v1.4.8 DiskRecoveryPRO_Update.zip -R '${{ github.repository }}' --clobber
+          if [[ "${{ github.event_name }}" == "release" ]]; then
+            TAG="${{ github.event.release.tag_name }}"
           else
-            gh release create v1.4.8 DiskRecoveryPRO_Update.zip -R '${{ github.repository }}' \
-              --title 'Disk Recovery PRO v1.4.8' \
-              --notes 'Automatyczna aktualizacja Disk Recovery PRO v1.4.8.' \
-              --latest
+            TAG="$(gh release view --repo "${{ github.repository }}" --json tagName --jq .tagName)"
           fi
+          VERSION="${TAG#v}"
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Unsupported release tag: $TAG (expected vX.Y.Z)" >&2
+            exit 1
+          fi
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Publish latest.json
+      - name: Download and verify release update package
         env:
           GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          TAG: ${{ steps.release.outputs.tag }}
         shell: bash
         run: |
           set -euo pipefail
-          SHA=$(sha256sum DiskRecoveryPRO_Update.zip | awk '{print $1}')
-          cat > latest.json <<EOF
-          {
-            "version": "1.4.8",
-            "channel": "stable",
-            "release_notes": "Disk Recovery PRO v1.4.8",
-            "downloadUrl": "https://github.com/${{ github.repository }}/releases/download/v1.4.8/DiskRecoveryPRO_Update.zip",
-            "sha256": "$SHA"
+          mkdir -p artifacts
+          gh release download "$TAG" --repo "$REPOSITORY" --pattern "DiskRecoveryPRO_Update.zip" --dir artifacts
+          test -s artifacts/DiskRecoveryPRO_Update.zip
+          unzip -t artifacts/DiskRecoveryPRO_Update.zip >/dev/null
+          SHA256="$(sha256sum artifacts/DiskRecoveryPRO_Update.zip | awk '{print $1}')"
+          echo "$SHA256  DiskRecoveryPRO_Update.zip" > artifacts/DiskRecoveryPRO_Update.sha256.txt
+          echo "$SHA256" > artifacts/sha256.txt
+
+      - name: Update the stable channel manifest
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          TAG: ${{ steps.release.outputs.tag }}
+          VERSION: ${{ steps.release.outputs.version }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          SHA256="$(cat artifacts/sha256.txt)"
+          DOWNLOAD_URL="https://github.com/$REPOSITORY/releases/download/$TAG/DiskRecoveryPRO_Update.zip"
+          python3 - <<'PY'
+          import json, os
+          payload = {
+              "version": os.environ["VERSION"],
+              "channel": "stable",
+              "release_notes": f"Disk Recovery PRO v{os.environ['VERSION']}",
+              "downloadUrl": os.environ["DOWNLOAD_URL"],
+              "sha256": os.environ["SHA256"],
           }
-          EOF
-          if gh api repos/${{ github.repository }}/contents/diskrecoverypro-updates/latest.json >/tmp/current.json 2>/dev/null; then
-            CURRENT_SHA=$(python3 -c "import json; print(json.load(open('/tmp/current.json'))['sha'])")
-            B64=$(base64 -w0 latest.json)
-            gh api --method PUT repos/${{ github.repository }}/contents/diskrecoverypro-updates/latest.json \
-              -f message='Publish Disk Recovery PRO latest manifest' \
-              -f content="$B64" \
-              -f sha="$CURRENT_SHA" \
-              -f branch='main'
+          with open("latest.json", "w", encoding="utf-8", newline="\n") as f:
+              json.dump(payload, f, ensure_ascii=False, indent=2)
+              f.write("\n")
+          PY
+          if gh api "repos/$REPOSITORY/contents/diskrecoverypro-updates/latest.json" > current.json 2>/dev/null; then
+            CURRENT_SHA="$(python3 -c "import json; print(json.load(open('current.json', encoding='utf-8'))['sha'])")"
+            B64="$(base64 -w0 latest.json)"
+            gh api --method PUT "repos/$REPOSITORY/contents/diskrecoverypro-updates/latest.json" \
+              -f message="Publish Disk Recovery PRO v$VERSION update manifest" \
+              -f content="$B64" -f sha="$CURRENT_SHA" -f branch="main" >/dev/null
           else
-            B64=$(base64 -w0 latest.json)
-            gh api --method PUT repos/${{ github.repository }}/contents/diskrecoverypro-updates/latest.json \
-              -f message='Publish Disk Recovery PRO latest manifest' \
-              -f content="$B64" \
-              -f branch='main'
+            B64="$(base64 -w0 latest.json)"
+            gh api --method PUT "repos/$REPOSITORY/contents/diskrecoverypro-updates/latest.json" \
+              -f message="Publish Disk Recovery PRO v$VERSION update manifest" \
+              -f content="$B64" -f branch="main" >/dev/null
           fi
-
-      - name: Show release URL
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh release view v1.4.8 -R '${{ github.repository }}' --json name,tagName,url,assets
+          echo "Published latest.json for Disk Recovery PRO v$VERSION"
