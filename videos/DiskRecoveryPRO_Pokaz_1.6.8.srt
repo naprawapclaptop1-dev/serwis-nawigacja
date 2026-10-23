@@ -1,0 +1,35 @@
+1
+00:00:00,000 --> 00:00:07,594
+To krótki przewodnik po Disk Recovery PRO. Pokazuję podstawowe kroki i zasady bezpiecznej pracy.
+
+2
+00:00:08,344 --> 00:00:14,785
+Wybierz dysk źródłowy oraz inny fizyczny dysk docelowy. Nie zapisuj odzysku na źródle.
+
+3
+00:00:15,535 --> 00:00:21,855
+Wybierz szybkie lub pełne skanowanie. Przed startem sprawdź jeszcze raz wybrany nośnik.
+
+4
+00:00:22,605 --> 00:00:29,588
+Obserwuj postęp i log. Mapa jest wizualizacją zakresu skanowania, a nie pomiarem SMART.
+
+5
+00:00:30,338 --> 00:00:36,737
+Po skanie sprawdź znalezione pliki, użyj podglądu i zapisz raport, jeśli jest potrzebny.
+
+6
+00:00:37,487 --> 00:00:45,724
+Odzyskuj na innym fizycznym dysku. Jeśli program blokuje operację, sprawdź mapowanie — nie omijaj zabezpieczeń.
+
+7
+00:00:46,474 --> 00:00:53,990
+Informacje SMART i temperatura pojawiają się tylko wtedy, gdy urządzenie i sterownik je udostępnią.
+
+8
+00:00:54,740 --> 00:01:01,651
+Wersja FREE działa przez trzysta sześćdziesiąt pięć dni. Możesz poprosić o licencję e-mailem.
+
+9
+00:01:02,401 --> 00:01:11,590
+To prezentacja interfejsu, a nie aktywnego odzyskiwania. Przed instalacją sprawdź wydawcę i sumę SHA dwa pięć sześć.

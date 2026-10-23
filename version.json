@@ -1,8 +1,8 @@
 {
   "name": "Disk Recovery PRO",
-  "version": "1.6.7",
-  "installer": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.6.7/DiskRecoveryPRO_Setup.exe",
-  "updatePackage": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.6.7/DiskRecoveryPRO_Setup.exe",
-  "sha256": "0e573e29260a97a4b4d0018d826cf9ed1255924346b5d7678499ff7fd47e24fe",
+  "version": "1.6.8",
+  "installer": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.6.8/DiskRecoveryPRO_Setup.exe",
+  "updatePackage": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.6.8/DiskRecoveryPRO_Setup.exe",
+  "sha256": "0dc4b6e344d502fff62ef308dc28bd0921dc7e34086246c0f6300ca8f18f3dfa",
   "updateMode": "manual-official-release"
 }
