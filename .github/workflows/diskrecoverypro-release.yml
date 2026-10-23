@@ -29,8 +29,13 @@ jobs:
             echo "Unsupported release tag: $TAG (expected vX.Y.Z)" >&2
             exit 1
           fi
+          PRERELEASE=false
+          if [[ "${{ github.event_name }}" == "release" && "${{ github.event.release.prerelease }}" == "true" ]]; then
+            PRERELEASE=true
+          fi
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "prerelease=$PRERELEASE" >> "$GITHUB_OUTPUT"
 
       - name: Download and verify standard installer
         env:
@@ -63,6 +68,7 @@ jobs:
           echo 'Legacy ZIP cleanup is performed by the local publisher to avoid racing this workflow.'
 
       - name: Update stable manifest to installer EXE
+        if: steps.release.outputs.prerelease != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
           REPOSITORY: ${{ github.repository }}
