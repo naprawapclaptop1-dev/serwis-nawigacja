@@ -1,0 +1,6 @@
+PUBLIKACJA PORTALU — TRYB AUTOMATYCZNY (FIX44)
+
+1. Uruchom START_BUILD_PORTAL_INSTALLER.bat.
+2. Po udanym buildzie publikuje sie wydanie migracyjne v1.6.2 jako prerelease oraz caly folder portal do GitHub Pages.
+3. Publikator korzysta z .NET, Git i Git Credential Manager; nie wymaga GitHub CLI.
+4. Stary DiskRecoveryPRO_Update.zip jest wycofany i nie jest publikowany. Nie wylaczaj ochrony i nie dodawaj wyjatkow.
