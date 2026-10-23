@@ -11,7 +11,8 @@
 <header class="nav"><a class="brand" href="./index.html" style="text-decoration:none;color:inherit">DISK <span>RECOVERY</span> PRO</a><a href="./index.html">← Powrót do portalu</a></header>
 <main>
 <section class="hero"><span class="pill">LICENCJE I AKTYWACJA</span><h1>Wybierz licencję<br>Disk Recovery PRO</h1><p>Każda nowa instalacja otrzymuje bezpłatny okres próbny na 365 dni. Po jego zakończeniu możesz aktywować program hasłem właściciela albo wczytać podpisany plik licencji zakupionej na tym portalu.</p><p class="muted">Zakup online zostanie włączony dopiero po skonfigurowaniu bezpiecznej usługi Checkout. Przyciski są domyślnie nieaktywne — strona nie pobierze płatności ani nie udaje, że transakcja została dokonana.</p></section>
-<label for="customerEmail">E-mail do dostarczenia licencji po potwierdzeniu płatności</label><input id="customerEmail" class="email" type="email" autocomplete="email" placeholder="adres e-mail kupującego">
+<label for="accountName">Nazwa konta / login do przypisania licencji</label><input id="accountName" class="email" type="text" autocomplete="username" maxlength="100" placeholder="np. jan.kowalski">
+<label for="customerEmail">E-mail do dostarczenia licencji po potwierdzeniu płatności</label><input id="customerEmail" class="email" type="email" autocomplete="email" maxlength="254" placeholder="adres e-mail kupującego">
 <section id="plans" class="cards">
 <article class="card"><h2>1 rok</h2><div class="price">149 zł / rok</div><p class="desc">Licencja okresowa na 12 miesięcy</p><ul class="features"><li>pełny dostęp do odzyskiwania</li><li>aktualizacje programu</li><li>podpisany plik .drplic</li></ul><button class="buy" data-plan="YEAR_1" disabled>Zakup chwilowo wyłączony</button></article>
 <article class="card featured"><h2>3 lata</h2><div class="price">299 zł / 3 lata</div><p class="desc">Dłuższy okres bez ponawiania zakupu</p><ul class="features"><li>pełny dostęp do odzyskiwania</li><li>aktualizacje programu</li><li>podpisany plik .drplic</li></ul><button class="buy" data-plan="YEAR_3" disabled>Zakup chwilowo wyłączony</button></article>
@@ -19,8 +20,8 @@
 </section>
 <div id="status" class="status" role="status" aria-live="polite">Sprawdzam konfigurację płatności…</div>
 <div class="alert"><strong>Ważne:</strong> pokazane ceny są wartościami startowymi. Zmień je w <code>license-config.json</code> i ustaw odpowiadające im identyfikatory cen u operatora płatności przed uruchomieniem sprzedaży.</div>
-<section class="how"><h2>Jak wygląda aktywacja</h2><ol><li>Po potwierdzeniu płatności system sprzedażowy generuje podpisany plik licencji i dostarcza go kupującemu e-mailem razem z linkiem do oficjalnego instalatora.</li><li>Zainstaluj aplikację i kliknij status licencji w prawym górnym rogu.</li><li>Wybierz <strong>WCZYTAJ LICENCJĘ</strong> i wskaż otrzymany plik <code>.drplic</code>.</li></ol><p class="muted">Generator administratora znajduje się w pakiecie źródłowym w katalogu <code>Admin/LicenseGenerator</code>. Klucz prywatny nie jest dołączany do instalatora klienta ani publikowany razem ze stroną.</p></section>
-</main><footer class="footer">Disk Recovery PRO 1.6.4 · Licencje są sprawdzane podpisem cyfrowym. Płatność musi zostać potwierdzona przez operatora — sam powrót na stronę po płatności nie wystarcza.</footer>
+<section class="how"><h2>Jak wygląda aktywacja</h2><ol><li>Po potwierdzeniu płatności serwer generuje podpisany plik licencji przypisany do podanego loginu konta i adresu e-mail, a następnie dostarcza go kupującemu e-mailem razem z linkiem do oficjalnego instalatora.</li><li>Zainstaluj aplikację i kliknij status licencji w prawym górnym rogu.</li><li>Wybierz <strong>WCZYTAJ LICENCJĘ</strong> i wskaż otrzymany plik <code>.drplic</code>.</li></ol><p class="muted">Generator administratora znajduje się w pakiecie źródłowym w katalogu <code>Admin/LicenseGenerator</code>. Klucz prywatny nie jest dołączany do instalatora klienta ani publikowany razem ze stroną.</p></section>
+</main><footer class="footer">Disk Recovery PRO 1.6.7 · Licencje są sprawdzane podpisem cyfrowym. Płatność musi zostać potwierdzona przez operatora — sam powrót na stronę po płatności nie wystarcza.</footer>
 </div>
 <script>
 (async()=>{
@@ -37,10 +38,12 @@
      button.addEventListener('click',async()=>{
        if(button.disabled)return;
        const email=document.getElementById('customerEmail').value.trim();
+       const accountName=document.getElementById('accountName').value.trim();
+       if(!accountName||accountName.length<3||accountName.length>100){status.textContent='Wpisz login konta (3–100 znaków).';return;}
        if(!email||!email.includes('@')){status.textContent='Wpisz prawidłowy adres e-mail do dostarczenia licencji.';return;}
        button.disabled=true;status.textContent='Tworzę bezpieczną sesję płatności…';
        try{
-         const response=await fetch(config.checkoutApi,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan:button.dataset.plan,email})});
+         const response=await fetch(config.checkoutApi,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan:button.dataset.plan,email,accountName})});
          const data=await response.json().catch(()=>({}));
          if(!response.ok||!data.checkoutUrl)throw new Error(data.error||'Usługa płatności nie przyjęła zamówienia.');
          location.href=data.checkoutUrl;
