@@ -63,6 +63,28 @@ jobs:
           echo "$SHA256" > artifacts/sha256.txt
           gh release upload "$TAG" artifacts/DiskRecoveryPRO_Setup.sha256.txt --repo "$REPOSITORY" --clobber
 
+      - name: Remove obsolete legacy update ZIP assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh release list --repo "$REPOSITORY" --limit 100 --json tagName --jq '.[].tagName' > release-tags.txt
+          while IFS= read -r tag; do
+            [[ -n "$tag" ]] || continue
+            if gh release view "$tag" --repo "$REPOSITORY" --json assets --jq '.assets[].name' | grep -Fxq "DiskRecoveryPRO_Update.zip"; then
+              echo "Retiring obsolete ZIP from release $tag"
+              if ! gh release delete-asset "$tag" "DiskRecoveryPRO_Update.zip" --repo "$REPOSITORY" --yes; then
+                # Another cleanup worker may have removed it at the same time.
+                if gh release view "$tag" --repo "$REPOSITORY" --json assets --jq '.assets[].name' | grep -Fxq "DiskRecoveryPRO_Update.zip"; then
+                  echo "The legacy ZIP is still present on $tag after deletion failed." >&2
+                  exit 1
+                fi
+              fi
+            fi
+          done < release-tags.txt
+
       - name: Confirm legacy ZIP is no longer used by the updater
         shell: bash
         run: |
