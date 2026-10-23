@@ -3,6 +3,6 @@
   "version": "1.6.8",
   "installer": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.6.8/DiskRecoveryPRO_Setup.exe",
   "updatePackage": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.6.8/DiskRecoveryPRO_Setup.exe",
-  "sha256": "65f4396c6d38e107996155517fa9a95192bd71b03d41982352bd083ff132b068",
+  "sha256": "2d8d156b35b6291eb4ccbe7de7841dbdb4952115f88dd6c9ed07bd9bb8d66c82",
   "updateMode": "manual-official-release"
 }
