@@ -7,21 +7,24 @@
       "id": "YEAR_1",
       "name": "1 rok",
       "priceLabel": "149 zł / rok",
+      "sumupUrl": "https://pay.sumup.com/b2c/QIVKPWN7",
       "checkoutEnabled": false
     },
     {
       "id": "YEAR_3",
       "name": "3 lata",
       "priceLabel": "299 zł / 3 lata",
+      "sumupUrl": "https://pay.sumup.com/b2c/Q4Y1U5HW",
       "checkoutEnabled": false
     },
     {
       "id": "LIFETIME",
       "name": "Bezterminowa",
       "priceLabel": "499 zł jednorazowo",
+      "sumupUrl": "https://pay.sumup.com/b2c/QUZ2PHGU",
       "checkoutEnabled": false
     }
   ],
-  "note": "Zamowienia licencji przez e-mail sa aktywne. Płatność online pozostaje wyłączona do czasu wdrożenia LicenseService przez HTTPS, ustawienia prawdziwych identyfikatorów cen Stripe i sekretów Resend oraz wpisania checkoutApi. Licencja jest wystawiana dopiero po potwierdzeniu płatności przez administratora.",
+  "note": "Płatność odbywa się przez linki SumUp przypisane do planów. Portal nie otrzymuje automatycznego potwierdzenia transakcji dla tych payment links; administrator musi sprawdzić płatność w panelu SumUp przed wystawieniem licencji.",
   "licenseRequestEmail": "naprawapclaptop1@gmail.com"
 }
