@@ -1,6 +1,7 @@
-PUBLIKACJA PORTALU — TRYB AUTOMATYCZNY (FIX44)
+DISK RECOVERY PRO 1.6.3 — PORTAL I LICENCJE
 
-1. Uruchom START_BUILD_PORTAL_INSTALLER.bat.
-2. Po udanym buildzie publikuje sie wydanie migracyjne v1.6.2 jako prerelease oraz caly folder portal do GitHub Pages.
-3. Publikator korzysta z .NET, Git i Git Credential Manager; nie wymaga GitHub CLI.
-4. Stary DiskRecoveryPRO_Update.zip jest wycofany i nie jest publikowany. Nie wylaczaj ochrony i nie dodawaj wyjatkow.
+1. START_BUILD_PORTAL_INSTALLER.bat buduje aplikację, instalator i generator licencji administratora.
+2. Po poprawnym buildzie uruchamia się publikacja całego folderu portal.
+3. Pliki licencje.html, license-config.json i po-zakupie.html trafiają na stronę.
+4. Zakup online pozostaje wyłączony, dopóki checkoutApi i usługa Admin/LicenseService nie zostaną skonfigurowane.
+5. Klucz prywatny generatora zostaje w katalogu administratora; nie kopiuj go do portal ani do instalatora klienta.

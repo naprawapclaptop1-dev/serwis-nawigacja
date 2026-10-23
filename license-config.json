@@ -1,0 +1,26 @@
+{
+  "checkoutApi": "",
+  "currency": "PLN",
+  "installerUrl": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.6.3/DiskRecoveryPRO_Setup.exe",
+  "plans": [
+    {
+      "id": "YEAR_1",
+      "name": "1 rok",
+      "priceLabel": "149 zł / rok",
+      "checkoutEnabled": false
+    },
+    {
+      "id": "YEAR_3",
+      "name": "3 lata",
+      "priceLabel": "299 zł / 3 lata",
+      "checkoutEnabled": false
+    },
+    {
+      "id": "LIFETIME",
+      "name": "Bezterminowa",
+      "priceLabel": "499 zł jednorazowo",
+      "checkoutEnabled": false
+    }
+  ],
+  "note": "Ceny są wartościami startowymi do potwierdzenia. Zakup pozostaje wyłączony do czasu wdrożenia LicenseService przez HTTPS, ustawienia prawdziwych identyfikatorów cen Stripe i sekretów Resend oraz wpisania checkoutApi."
+}
