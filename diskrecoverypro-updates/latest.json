@@ -1,7 +1,8 @@
 {
   "version": "1.4.8",
-  "channel": "stable",
-  "release_notes": "Disk Recovery PRO v1.4.8",
-  "downloadUrl": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.4.8/DiskRecoveryPRO_Update.zip",
-  "sha256": "1e696dd751a7955985b48fca791c7cf0c5618f6e2424db86f6b6490a508ccdc7"
+  "channel": "paused",
+  "release_notes": "Dystrybucja starej paczki DiskRecoveryPRO_Update.zip wstrzymana po zgłoszeniach ochrony antywirusowej. Do czasu opublikowania i zweryfikowania nowego instalatora manifest nie wskazuje pliku do pobrania.",
+  "downloadUrl": "",
+  "sha256": "",
+  "updateMode": "manual-official-release"
 }
