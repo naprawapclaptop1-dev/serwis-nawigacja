@@ -22,6 +22,6 @@
       "checkoutEnabled": false
     }
   ],
-  "note": "Ceny są wartościami startowymi do potwierdzenia. Zakup pozostaje wyłączony do czasu wdrożenia LicenseService przez HTTPS, ustawienia prawdziwych identyfikatorów cen Stripe i sekretów Resend oraz wpisania checkoutApi. Checkout pozostaje wyłączony w tej paczce do czasu wdrożenia serwera HTTPS i sekretów operatora.",
+  "note": "Zamowienia licencji przez e-mail sa aktywne. Płatność online pozostaje wyłączona do czasu wdrożenia LicenseService przez HTTPS, ustawienia prawdziwych identyfikatorów cen Stripe i sekretów Resend oraz wpisania checkoutApi. Licencja jest wystawiana dopiero po potwierdzeniu płatności przez administratora.",
   "licenseRequestEmail": "naprawapclaptop1@gmail.com"
 }
