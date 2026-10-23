@@ -1,0 +1,48 @@
+name: Retire flagged Disk Recovery PRO update ZIP
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/retire-diskrecoverypro-legacy-zip.yml"
+      - "diskrecoverypro-updates/latest.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  retire-legacy-archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove obsolete update archive from every release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh release list --repo "$REPOSITORY" --limit 100 --json tagName --jq '.[].tagName' > release-tags.txt
+          while IFS= read -r tag; do
+            [[ -n "$tag" ]] || continue
+            if gh release view "$tag" --repo "$REPOSITORY" --json assets --jq '.assets[].name' | grep -Fxq "DiskRecoveryPRO_Update.zip"; then
+              echo "Removing retired DiskRecoveryPRO_Update.zip from release $tag"
+              if ! gh release delete-asset "$tag" "DiskRecoveryPRO_Update.zip" --repo "$REPOSITORY" --yes; then
+                # A concurrent publisher may already have removed it; only fail if it remains.
+                if gh release view "$tag" --repo "$REPOSITORY" --json assets --jq '.assets[].name' | grep -Fxq "DiskRecoveryPRO_Update.zip"; then
+                  echo "Failed to remove legacy archive from $tag" >&2
+                  exit 1
+                fi
+              fi
+            fi
+          done < release-tags.txt
+
+          # Verify that the retired archive is no longer exposed by any existing release.
+          while IFS= read -r tag; do
+            [[ -n "$tag" ]] || continue
+            if gh release view "$tag" --repo "$REPOSITORY" --json assets --jq '.assets[].name' | grep -Fxq "DiskRecoveryPRO_Update.zip"; then
+              echo "Legacy archive remains on release $tag" >&2
+              exit 1
+            fi
+          done < release-tags.txt
+          echo "Legacy update ZIP is absent from all inspected releases."
