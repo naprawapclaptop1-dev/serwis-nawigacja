@@ -32,7 +32,7 @@ jobs:
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Download and verify release update package
+      - name: Download and verify standard installer
         env:
           GH_TOKEN: ${{ github.token }}
           REPOSITORY: ${{ github.repository }}
@@ -41,14 +41,38 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p artifacts
-          gh release download "$TAG" --repo "$REPOSITORY" --pattern "DiskRecoveryPRO_Update.zip" --dir artifacts
-          test -s artifacts/DiskRecoveryPRO_Update.zip
-          unzip -t artifacts/DiskRecoveryPRO_Update.zip >/dev/null
-          SHA256="$(sha256sum artifacts/DiskRecoveryPRO_Update.zip | awk '{print $1}')"
-          echo "$SHA256  DiskRecoveryPRO_Update.zip" > artifacts/DiskRecoveryPRO_Update.sha256.txt
+          gh release download "$TAG" --repo "$REPOSITORY" --pattern "DiskRecoveryPRO_Setup.exe" --dir artifacts
+          test -s artifacts/DiskRecoveryPRO_Setup.exe
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path("artifacts/DiskRecoveryPRO_Setup.exe")
+          with path.open("rb") as f:
+              if f.read(2) != b"MZ":
+                  raise SystemExit("Release asset is not a Windows PE executable (missing MZ signature).")
+          PY
+          SHA256="$(sha256sum artifacts/DiskRecoveryPRO_Setup.exe | awk '{print $1}')"
+          echo "$SHA256  DiskRecoveryPRO_Setup.exe" > artifacts/DiskRecoveryPRO_Setup.sha256.txt
           echo "$SHA256" > artifacts/sha256.txt
+          gh release upload "$TAG" artifacts/DiskRecoveryPRO_Setup.sha256.txt --repo "$REPOSITORY" --clobber
 
-      - name: Update the stable channel manifest
+      - name: Remove obsolete update ZIP assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # The client no longer consumes Update.zip. Remove older copies that triggered AV alerts.
+          gh release list --repo "$REPOSITORY" --limit 100 --json tagName --jq '.[].tagName' > release-tags.txt
+          while IFS= read -r tag; do
+            [[ -n "$tag" ]] || continue
+            if gh release view "$tag" --repo "$REPOSITORY" --json assets --jq '.assets[].name' | grep -Fxq "DiskRecoveryPRO_Update.zip"; then
+              echo "Removing obsolete DiskRecoveryPRO_Update.zip from $tag"
+              gh release delete-asset "$tag" "DiskRecoveryPRO_Update.zip" --repo "$REPOSITORY" --yes
+            fi
+          done < release-tags.txt
+
+      - name: Update stable manifest to installer EXE
         env:
           GH_TOKEN: ${{ github.token }}
           REPOSITORY: ${{ github.repository }}
@@ -58,7 +82,7 @@ jobs:
         run: |
           set -euo pipefail
           SHA256="$(cat artifacts/sha256.txt)"
-          DOWNLOAD_URL="https://github.com/$REPOSITORY/releases/download/$TAG/DiskRecoveryPRO_Update.zip"
+          DOWNLOAD_URL="https://github.com/$REPOSITORY/releases/download/$TAG/DiskRecoveryPRO_Setup.exe"
           export DOWNLOAD_URL SHA256
           python3 - <<'PY'
           import json, os
@@ -67,7 +91,9 @@ jobs:
               "channel": "stable",
               "release_notes": f"Disk Recovery PRO v{os.environ['VERSION']}",
               "downloadUrl": os.environ["DOWNLOAD_URL"],
+              "installerUrl": os.environ["DOWNLOAD_URL"],
               "sha256": os.environ["SHA256"],
+              "updateMode": "manual-official-release"
           }
           with open("latest.json", "w", encoding="utf-8", newline="\n") as f:
               json.dump(payload, f, ensure_ascii=False, indent=2)
@@ -77,12 +103,12 @@ jobs:
             CURRENT_SHA="$(python3 -c "import json; print(json.load(open('current.json', encoding='utf-8'))['sha'])")"
             B64="$(base64 -w0 latest.json)"
             gh api --method PUT "repos/$REPOSITORY/contents/diskrecoverypro-updates/latest.json" \
-              -f message="Publish Disk Recovery PRO v$VERSION update manifest" \
+              -f message="Publish Disk Recovery PRO v$VERSION installer manifest" \
               -f content="$B64" -f sha="$CURRENT_SHA" -f branch="main" >/dev/null
           else
             B64="$(base64 -w0 latest.json)"
             gh api --method PUT "repos/$REPOSITORY/contents/diskrecoverypro-updates/latest.json" \
-              -f message="Publish Disk Recovery PRO v$VERSION update manifest" \
+              -f message="Publish Disk Recovery PRO v$VERSION installer manifest" \
               -f content="$B64" -f branch="main" >/dev/null
           fi
-          echo "Published latest.json for Disk Recovery PRO v$VERSION"
+          echo "Published installer manifest for Disk Recovery PRO v$VERSION"
