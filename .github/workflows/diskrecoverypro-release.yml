@@ -55,22 +55,12 @@ jobs:
           echo "$SHA256" > artifacts/sha256.txt
           gh release upload "$TAG" artifacts/DiskRecoveryPRO_Setup.sha256.txt --repo "$REPOSITORY" --clobber
 
-      - name: Remove obsolete update ZIP assets
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPOSITORY: ${{ github.repository }}
+      - name: Confirm legacy ZIP is no longer used by the updater
         shell: bash
         run: |
           set -euo pipefail
-          # The client no longer consumes Update.zip. Remove older copies that triggered AV alerts.
-          gh release list --repo "$REPOSITORY" --limit 100 --json tagName --jq '.[].tagName' > release-tags.txt
-          while IFS= read -r tag; do
-            [[ -n "$tag" ]] || continue
-            if gh release view "$tag" --repo "$REPOSITORY" --json assets --jq '.assets[].name' | grep -Fxq "DiskRecoveryPRO_Update.zip"; then
-              echo "Removing obsolete DiskRecoveryPRO_Update.zip from $tag"
-              gh release delete-asset "$tag" "DiskRecoveryPRO_Update.zip" --repo "$REPOSITORY" --yes
-            fi
-          done < release-tags.txt
+          echo 'The client update channel now links only to DiskRecoveryPRO_Setup.exe.'
+          echo 'Legacy ZIP cleanup is performed by the local publisher to avoid racing this workflow.'
 
       - name: Update stable manifest to installer EXE
         env:
