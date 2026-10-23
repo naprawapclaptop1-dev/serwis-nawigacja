@@ -1,0 +1,79 @@
+1
+00:00:00,000 --> 00:00:29,811
+Witaj w szczegółowym przewodniku Disk Recovery PRO. Pokażę, gdzie pobrać instalator, jak wybrać źródło i dysk docelowy, uruchomić skanowanie, przejrzeć wyniki oraz bezpiecznie skopiować pliki. Na końcu pokażę zakup licencji i aktywację. To animowany instruktaż oparty na zrzutach interfejsu; nie jest to nagranie prawdziwego skanowania.
+
+2
+00:00:30,711 --> 00:01:05,388
+Zacznij od sekcji Instalator na oficjalnym portalu. Pobierz DiskRecoveryPRO Setup EXE z wydania GitHub i, jeśli dostępna jest suma SHA dwieście pięćdziesiąt sześć, porównaj ją z pobranym plikiem. Uruchom standardowy kreator instalacji i przeczytaj jego komunikaty. Jeśli antywirus zgłasza zagrożenie, przerwij i sprawdź dokładną nazwę wykrycia. Nie wyłączaj ochrony i nie dodawaj folderu do wyjątków.
+
+3
+00:01:06,288 --> 00:01:38,446
+W głównym pulpicie znajdziesz pole Źródło oraz pole Dysk docelowy. Źródło oznacza nośnik, na którym szukasz plików. Cel musi być innym fizycznym dyskiem, a nie tylko inną literą partycji na tym samym dysku. Porównaj nazwę, pojemność i literę woluminu. Jeśli nie masz pewności, z którego dysku korzystasz, zatrzymaj się i odśwież listę urządzeń przed rozpoczęciem pracy.
+
+4
+00:01:39,346 --> 00:02:15,338
+Kilka liter woluminów może wskazywać na ten sam fizyczny dysk. Dlatego przed odzyskiwaniem program sprawdza mapowanie urządzeń. Jeśli zobaczysz blokadę albo ostrzeżenie, że mapowanie się zmieniło, nie obchodź zabezpieczenia. Odśwież urządzenia, ponownie wybierz źródło oraz cel i zweryfikuj ich położenie. Gdy dane są bardzo ważne lub nośnik ma objawy awarii fizycznej, ogranicz zapisy i rozważ wykonanie obrazu sektorowego.
+
+5
+00:02:16,238 --> 00:02:50,589
+Szybkie skanowanie wybieraj do wstępnego przeglądu. Pełny skan analizuje szerszy zakres danych i może potrwać wiele godzin, szczególnie na dużym lub wolnym dysku. Przed startem jeszcze raz sprawdź wybrane źródło i cel. Przycisk STOP służy do zatrzymania bieżącego działania. Jeżeli Windows proponuje sformatowanie nośnika, a są na nim ważne pliki, anuluj formatowanie i nie wykonuj operacji zapisujących zmiany.
+
+6
+00:02:51,489 --> 00:03:26,283
+Podczas skanowania obserwuj pasek postępu, procent, prędkość, szacowany czas i dolny log. Mapa postępu jest wizualizacją zakresu odczytu, nie pomiarem SMART i nie dowodzi, że plik został odzyskany. Wznowienie zapisanej sesji jest dozwolone tylko wtedy, gdy źródło i cel nadal odpowiadają zapamiętanemu mapowaniu. Jeśli urządzenia się zmieniły, najpierw zweryfikuj wybór, zamiast wymuszać wznowienie.
+
+7
+00:03:27,183 --> 00:04:01,006
+Po skanowaniu przejdź do listy wyników. Sprawdź nazwę, typ, rozmiar, stan i offset, jeśli są dostępne. Filtr typów może pomóc ograniczyć listę. Użyj podglądu tam, gdzie program go obsługuje, a raportu i statystyk do udokumentowania sesji. Wynik oznaczony jako kandydat nie zawsze jest kompletnym, otwieralnym plikiem, dlatego przed zakończeniem pracy sprawdź kilka odzyskanych plików.
+
+8
+00:04:01,906 --> 00:04:30,251
+Zaznacz potrzebne pliki i kliknij odzyskiwanie. Wybierz folder na innym fizycznym dysku i upewnij się, że jest na nim wystarczająco dużo miejsca. Nigdy nie zapisuj odzyskiwanych danych na źródłowym nośniku — zapis może nadpisać pozostałe fragmenty danych. Po zakończeniu otwórz kilka plików, sprawdź ich zawartość i zachowaj kopię raportu.
+
+9
+00:04:31,151 --> 00:05:03,017
+Jeśli nośnik jest niestabilny, obraz sektorowy może pomóc zachować możliwie dużo danych do dalszej analizy. Zapisz obraz na innym fizycznym dysku. Nie uruchamiaj naprawy systemu plików ani formatowania na ślepo przed zabezpieczeniem ważnych danych. Przy mechanicznym stukaniu, rozłączaniu lub gwałtownym pogarszaniu odczytu przestań intensywnie skanować i rozważ profesjonalne odzyskiwanie.
+
+10
+00:05:03,917 --> 00:05:38,783
+Panel boczny i moduły diagnostyczne prezentują informacje udostępniane przez system, kontroler i sterowniki. Jeśli widzisz komunikat „Brak odczytu”, nie traktuj go jako temperatury zero stopni ani jako potwierdzenia pełnej sprawności dysku. Testy CPU, GPU, RAM i SMART są diagnostyką wstępną. Zachowaj wyniki i połącz je z objawami sprzętowymi, a przy podejrzeniu awarii najpierw zabezpiecz ważne dane.
+
+11
+00:05:39,683 --> 00:06:16,074
+Bezpłatny okres wersji FREE trwa trzysta sześćdziesiąt pięć dni od pierwszego uruchomienia. Na stronie Licencje wybierz plan: roczny za sto czterdzieści dziewięć złotych, trzyletni za dwieście dziewięćdziesiąt dziewięć złotych lub bezterminowy za czterysta dziewięćdziesiąt dziewięć złotych. Możesz kliknąć Zapłać przez SumUp albo użyć odpowiedniego kodu QR w tym filmie. Zanim zatwierdzisz transakcję, porównaj plan i kwotę na stronie SumUp.
+
+12
+00:06:16,974 --> 00:06:55,756
+Dla licencji rocznej zeskanuj kod widoczny na ekranie. Otworzy on stronę SumUp pod adresem pay.sumup.com, kod QIVKPWN7. Cena planu na portalu to sto czterdzieści dziewięć złotych za rok. Zawsze sprawdź plan, kwotę i odbiorcę na otwartej stronie SumUp przed potwierdzeniem płatności. Po zakończeniu zachowaj potwierdzenie. Jeżeli oglądasz film na telefonie, otwórz link na stronie Licencje zamiast skanować kod z tego samego ekranu.
+
+13
+00:06:56,656 --> 00:07:31,106
+Dla licencji trzyletniej zeskanuj drugi kod QR, Q4Y1U5HW. Otwiera on osobny link SumUp przypisany do planu trzyletniego. Cena pokazywana na portalu wynosi dwieście dziewięćdziesiąt dziewięć złotych za trzy lata. Przed zatwierdzeniem sprawdź kwotę na samej stronie SumUp. Nie zamieniaj kodów między planami. Po płatności zachowaj potwierdzenie, aby łatwiej przypisać zakup do zamówienia.
+
+14
+00:07:32,006 --> 00:08:05,193
+Dla licencji bezterminowej użyj trzeciego kodu QR, QUZ2PHGU. W portalu plan jest opisany jako bezterminowy, z ceną czterysta dziewięćdziesiąt dziewięć złotych jednorazowo. Przed zapłatą zweryfikuj plan i sumę wyświetloną przez SumUp. QR otwiera stronę płatniczą; samo zeskanowanie nie pobiera pieniędzy. Płatność następuje dopiero po przejściu procesu i zatwierdzeniu jej przez Ciebie.
+
+15
+00:08:06,093 --> 00:08:48,401
+Po udanej płatności wróć do karty z portalem Disk Recovery PRO i sekcji Licencje. Użyj przycisku Wyślij dane po płatności. Otworzy się przygotowana wiadomość e-mail. Sprawdź login konta, adres do dostarczenia licencji, wybrany plan oraz dopisz identyfikator transakcji lub numer zamówienia z SumUp, jeśli jest widoczny. Sprawdź treść i wyślij wiadomość samodzielnie. Linki SumUp nie przekazują automatycznie potwierdzenia do generatora, dlatego administrator musi sprawdzić płatność w panelu SumUp.
+
+16
+00:08:49,301 --> 00:09:33,648
+Po potwierdzeniu wpłaty administrator użyje generatora licencji i wyśle na podany adres e-mail wiadomość z podpisanym plikiem licencji o rozszerzeniu drplic oraz z kodem aktywacyjnym zaczynającym się od DRP1, jeśli ta metoda jest obsługiwana w danej wersji programu. Sprawdź, czy login i adres e-mail odpowiadają zamówieniu. Pobierz załącznik na własny komputer i zachowaj wiadomość. Jeżeli nie widzisz maila, zajrzyj do folderu spam lub skontaktuj się z administratorem. Nie publikuj pliku licencji ani nie przekazuj go innym osobom.
+
+17
+00:09:34,548 --> 00:10:15,839
+Po sprawdzeniu transakcji administrator otwiera lokalny generator licencji z folderu Admin. Wpisuje login konta klienta oraz e-mail, wybiera opłacony okres: rok, trzy lata albo bezterminowo, a następnie generuje podpisany plik .drplic i kod aktywacyjny. Dane muszą odpowiadać zamówieniu. Klucz prywatny podpisujący licencje pozostaje wyłącznie po stronie administratora. Nie umieszczaj go na portalu ani w instalatorze dla klientów, i nigdy nie wysyłaj całego folderu Admin.
+
+18
+00:10:16,739 --> 00:10:58,254
+Aby aktywować zakupioną licencję, uruchom Disk Recovery PRO i kliknij status licencji w prawym górnym rogu. W oknie aktywacji wybierz WCZYTAJ PLIK i wskaż otrzymany plik .drplic. Alternatywnie kliknij WPISZ KOD i wklej cały kod zaczynający się od DRP1:. Nie wpisuj kodu ani nie wybieraj pliku w polu hasła właściciela; przycisk ZALOGUJ ADMINA służy wyłącznie właścicielowi programu. Po aktywacji sprawdź, czy wyświetlany plan i termin ważności zgadzają się z zakupem.
+
+19
+00:10:59,154 --> 00:11:34,000
+Przed instalacją sprawdź, czy pobierasz plik z oficjalnego wydania i porównaj sumę SHA dwieście pięćdziesiąt sześć, jeśli jest udostępniona. Jeżeli Defender lub Bitdefender zgłosi wykrycie, nie wyłączaj ochrony i nie dodawaj całego folderu do wyjątków. Zachowaj dokładną nazwę wykrycia, sprawdź plik i w razie wątpliwości wstrzymaj instalację. Program nie odzyska danych, które zostały fizycznie zniszczone lub nadpisane.
+
+20
+00:11:34,900 --> 00:12:04,206
+Podsumowując: pobierz oficjalny instalator, zweryfikuj źródło i fizycznie osobny dysk docelowy, uruchom odpowiedni skan, przejrzyj wyniki i odzyskaj pliki na inny nośnik. Zachowaj raport i sprawdź odzyskane dokumenty. Licencje zamówisz z portalu, a administrator wystawi je po weryfikacji płatności. Dziękuję za obejrzenie przewodnika.

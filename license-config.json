@@ -25,6 +25,6 @@
       "checkoutEnabled": false
     }
   ],
-  "note": "Płatność odbywa się przez linki SumUp przypisane do planów. Portal nie otrzymuje automatycznego potwierdzenia transakcji dla tych payment links; administrator musi sprawdzić płatność w panelu SumUp przed wystawieniem licencji.",
-  "licenseRequestEmail": "naprawapclaptop1@gmail.com"
+  "licenseRequestEmail": "naprawapclaptop1@gmail.com",
+  "note": "SumUp payment links are static. After payment, customer sends an email with the order ID; administrator verifies the transaction manually before generating .drplic and DRP1 code."
 }
