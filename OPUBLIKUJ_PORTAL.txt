@@ -1,4 +1,4 @@
-DISK RECOVERY PRO 1.7.5 — PORTAL I LICENCJE
+DISK RECOVERY PRO 1.7.6 — PORTAL I LICENCJE
 
 1. START_BUILD_PORTAL_INSTALLER.bat buduje aplikację, instalator i generator licencji administratora.
 2. Po poprawnym buildzie uruchamia się publikacja całego folderu portal.
