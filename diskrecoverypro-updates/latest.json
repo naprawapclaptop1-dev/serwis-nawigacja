@@ -1,9 +1,9 @@
 {
-  "version": "1.7.3",
+  "version": "1.7.4",
   "channel": "stable",
-  "release_notes": "Disk Recovery PRO 1.7.3. Oficjalny instalator Windows EXE, pakiety językowe i aktualizator pobierający instalator z GitHub Releases z weryfikacją SHA-256.",
-  "downloadUrl": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.7.3/DiskRecoveryPRO_Setup.exe",
-  "installerUrl": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.7.3/DiskRecoveryPRO_Setup.exe",
-  "sha256": "99ec88b5b420743fa2b7300aa8df59eeb15383774ed11067281271d966b33c69",
+  "release_notes": "Disk Recovery PRO 1.7.4. Oficjalny instalator Windows EXE; aktualizator pobiera instalator z GitHub Releases i weryfikuje SHA-256.",
+  "downloadUrl": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.7.4/DiskRecoveryPRO_Setup.exe",
+  "installerUrl": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.7.4/DiskRecoveryPRO_Setup.exe",
+  "sha256": "f31d8ffd2b9f2d4d30061febc89aca053144943a6fa8e56e76b5bd96867c73aa",
   "updateMode": "verified-installer-exe"
 }
