@@ -3,6 +3,6 @@
   "version": "1.7.5",
   "installer": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.7.5/DiskRecoveryPRO_Setup.exe",
   "updatePackage": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.7.5/DiskRecoveryPRO_Setup.exe",
-  "sha256": "a3fe9bd610201ff6f6d92b76bbe9578d5cc23772449888b9ba19e98e046cc725",
+  "sha256": "029eb16195040498afb11af64ea422eaabab61a504c189dd68fe44fda028f2a6",
   "updateMode": "manual-official-release"
 }
