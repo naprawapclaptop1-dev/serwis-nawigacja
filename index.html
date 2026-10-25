@@ -229,5 +229,49 @@
 })();
 </script>
 
+
+<script>
+(()=> {
+ const steps=[
+ ["Witamy / instalacja","Instalacja Disk Recovery PRO — Ultimate Edition","Instalator Windows x64. Zamknij program przed aktualizacją i nie wyłączaj antywirusa."],
+ ["Licencja i aktywacja","Licencja FREE, zakup i trwała aktywacja","FREE trwa 365 dni. Płatną licencję aktywuje podpisany plik .drplic lub kod DRP1. Logowanie właściciela to tylko sesja administracyjna."],
+ ["Wybór folderu","Wybór folderu instalacji","Standardowo program instaluje się w Program Files. Zmień lokalizację tylko gdy jest to potrzebne."],
+ ["Sprawdzenie systemu","Sprawdzenie Windows i uprawnień","Aplikacja jest przeznaczona dla Windows 10/11 x64. Część testów wymaga administratora."],
+ ["Pobieranie komponentów","Pobieranie komponentów","Pobieraj aktualizacje wyłącznie z oficjalnego wydania i sprawdzaj SHA-256."],
+ ["Instalacja plików","Kopiowanie plików","Poczekaj na zakończenie instalacji; nie przerywaj procesu kopiowania."],
+ ["Konfiguracja modułów","Dostępne moduły","Odzyskiwanie danych, naprawa Windows, diagnostyka sprzętu, dysków, USB/SD i BSOD."],
+ ["Integracja sterowników","Dostęp do urządzeń","Brak informacji SMART z kontrolera USB/SD nie oznacza, że nośnik jest sprawny."],
+ ["Utworzenie skrótów","Skróty aplikacji","Uruchamiaj z menu Start lub skrótu pulpitu."],
+ ["Rejestracja rozszerzeń","Pliki raportów i licencji","Plik .drplic jest weryfikowany podpisem cyfrowym. Nie udostępniaj klucza prywatnego."],
+ ["Konfiguracja aktualizacji","Aktualizator online","Aktualizator sprawdza wydanie, pobiera instalator i SHA-256, zamyka aplikację oraz prosi o zgodę UAC."],
+ ["Konfiguracja diagnostyki","Diagnostyka sprzętu","Raport powinien odróżniać błąd potwierdzony od braku danych."],
+ ["Konfiguracja odzyskiwania","Źródło i cel odzysku","Wybierz inny fizyczny dysk docelowy. Nie zapisuj odzyskiwanych plików na źródle."],
+ ["Konfiguracja USB / SD","Pendrive i karta SD","Sprawdź urządzenie i wolumin. Przy błędach odczytu najpierw wykonaj obraz nośnika."],
+ ["Naprawa systemu","Naprawa systemu plików","CHKDSK /f i podobne działania wymagają diagnozy, kopii danych i zgody użytkownika."],
+ ["Konfiguracja BSOD","Minidump i WinDbg","Moduł sprawdza zrzuty awarii. Nazwa sterownika w raporcie jest wskazówką, nie dowodem winy."],
+ ["Konfiguracja SMART","SMART / HDD / SSD / NVMe","Prognoza zużycia wymaga dokładnego mapowania dysku i historii pomiarów; nie obiecuje daty awarii."],
+ ["Zakończenie instalacji","Zakończenie instalacji","Po instalacji uruchom test jakości, sprawdź wersję i zapisz raport."],
+ ["Pierwsze uruchomienie","Pierwsze uruchomienie","Sprawdź status licencji oraz wykryte dyski. W razie problemu zachowaj log."],
+ ["Gotowe","Gotowe — rozpocznij diagnostykę","To demonstracja. Otwórz pełny przewodnik, aby zobaczyć instrukcje dla każdego modułu."]
+ ];
+ const $=id=>document.getElementById(id),nav=$("installerTourSteps"),main=$("installerTourMain"),bar=$("installerTourProgressBar"),progress=$("installerTourProgressText"),prev=$("installerTourPrev"),next=$("installerTourNext");
+ if(!nav||!main||!bar||!progress||!prev||!next)return;
+ let idx=0,voices=[],speech=window.speechSynthesis||null;
+ const esc=v=>String(v).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+ nav.innerHTML=steps.map((st,i)=>'<button class="installer-tour-step" type="button" data-installer-tour-step="'+i+'" aria-current="'+(i===0?'step':'false')+'"><span class="num">'+(i+1)+'</span>'+esc(st[0])+'</button>').join('');
+ function render(){const st=steps[idx];main.innerHTML='<div class="kicker">KROK '+(idx+1)+' / 20</div><h3>'+esc(st[0])+'</h3><p class="sub">'+esc(st[1])+'</p><p>'+esc(st[2])+'</p><ul><li><span class="installer-tour-ok">✓</span> Wybierz krok i odczytaj instrukcję.</li><li><span class="installer-tour-ok">✓</span> Operacje sprzętowe wykonuj w aplikacji Windows.</li><li><span class="installer-tour-ok">✓</span> Naprawa zapisująca zmiany wymaga kopii i zgody.</li></ul><div class="installer-tour-callout"><strong>WAŻNE</strong><br>Podgląd strony nie instaluje aplikacji i nie skanuje prawdziwych dysków.</div>';
+ [...nav.querySelectorAll('button')].forEach((b,i)=>b.setAttribute('aria-current',i===idx?'step':'false'));
+ const p=Math.round((idx+1)/steps.length*100);bar.style.width=p+'%';progress.textContent='KROK '+(idx+1)+' / 20 • '+p+'%';prev.disabled=idx===0;next.textContent=idx===19?'PEŁNY PRZEWODNIK ↗':'DALEJ →';$("installerTourGuideText").textContent=st[1]+'. '+st[2];}
+ function loadVoices(){if(!speech){$("installerTourVoice").innerHTML='<option value="">Głos niedostępny</option>';$("installerTourVoiceStatus").textContent='Brak obsługi mowy. Instrukcja pozostaje dostępna w tekście.';return;}voices=speech.getVoices().filter(v=>/^pl(-|_)/i.test(v.lang)||/polish|polski/i.test(v.name));voices.sort((a,b)=>score(b)-score(a));function score(v){return (/natural|online|neural/i.test(v.name)?5:0)+(/microsoft/i.test(v.name)?2:0)+(/zofia|paulina|marek/i.test(v.name)?1:0);}const sel=$("installerTourVoice");sel.innerHTML='';if(!voices.length){sel.add(new Option('Brak głosu PL — doinstaluj',''));$("installerTourVoiceStatus").textContent='Nie znaleziono głosu polskiego. Doinstaluj go w Windows albo użyj „Czytaj na głos” w Edge.';return;}voices.forEach((v,i)=>sel.add(new Option(v.name+' ('+v.lang+')'+(/natural|online|neural/i.test(v.name)?' • NATURAL/ONLINE':''),String(i))));$("installerTourVoiceStatus").textContent=/natural|online|neural/i.test(voices[0].name)?'Wybrano preferowany głos Natural/Online: '+voices[0].name+'.':'Dostępne są głosy systemowe. Jeśli brzmią sztucznie, wybierz głos Natural/Online lub użyj Edge Read Aloud.';}
+ function speak(text){if(!speech||!voices.length){$("installerTourVoiceStatus").textContent='Brak głosu PL. Skorzystaj z widocznego tekstu.';return;}speech.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='pl-PL';u.voice=voices[Number($("installerTourVoice").value)]||voices[0];u.rate=Number($("installerTourRate").value)||.92;u.volume=1;u.pitch=1;u.onend=()=>{$("installerTourVoiceStatus").textContent='Odczyt zakończony: '+u.voice.name;};u.onerror=e=>$("installerTourVoiceStatus").textContent='Błąd odczytu: '+e.error+'. Wybierz inny głos.';speech.speak(u);$("installerTourVoiceStatus").textContent='Odtwarzam: '+u.voice.name;}
+ nav.addEventListener('click',e=>{const b=e.target.closest('[data-installer-tour-step]');if(!b)return;idx=Number(b.dataset.installerTourStep)||0;render();});
+ prev.addEventListener('click',()=>{idx=Math.max(0,idx-1);render();});next.addEventListener('click',()=>{if(idx<19){idx++;render();}else location.href='./przewodnik.html';});
+ $("installerTourTestVoice").addEventListener('click',()=>speak('Dzień dobry. To próbka polskiego lektora Disk Recovery PRO. Jeżeli głos brzmi sztucznie, wybierz głos Natural lub Online albo skorzystaj z funkcji Czytaj na głos w Microsoft Edge.'));
+ $("installerTourSpeak").addEventListener('click',()=>speak('Krok '+(idx+1)+'. '+steps[idx].join('. ')));
+ $("installerTourStop").addEventListener('click',()=>{if(speech)speech.cancel();$("installerTourVoiceStatus").textContent='Lektor zatrzymany.';});
+ $("installerTourRate").addEventListener('input',()=>{$("installerTourRateLabel").textContent=Number($("installerTourRate").value).toFixed(2).replace('.',',')+'×';});
+ render();loadVoices();if(speech)speech.onvoiceschanged=loadVoices;
+})();
+</script>
 </body>
 </html>
