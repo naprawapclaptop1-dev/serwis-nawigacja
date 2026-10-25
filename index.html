@@ -30,16 +30,59 @@
 .tour-step-list details{border:1px solid #233d5b;background:#0c1a2c;border-radius:10px;padding:11px 12px;min-width:0}.tour-step-list summary{cursor:pointer;font-weight:800}.tour-step-list p{color:#c0d1e5;font-size:13px;margin:8px 0}.tour-step-list button{border:1px solid #36769d;background:#0d3148;color:var(--text);border-radius:7px;padding:7px 9px;cursor:pointer;font-size:11px;font-weight:800}
 @media(max-width:760px){.tour-voice{grid-template-columns:1fr 1fr}.tour-voice>div:first-child{grid-column:1/-1}.tour-form,.tour-step-list{grid-template-columns:1fr}.tour-grid{grid-template-columns:repeat(8,1fr)}.tour-stage{padding:12px}}
 
+
+/* FIX92: installer-like 20-step preview with voice controls; no robotic MP4 soundtrack */
+.installer-tour{margin:26px 0 30px;border:1px solid #2b6784;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,#081729,#06101c);box-shadow:0 22px 58px #0005}
+.installer-tour-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#030b17;border-bottom:2px solid var(--cyan);padding:14px 18px}
+.installer-tour-brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.04em}.installer-tour-icon{width:43px;height:43px;border:1px solid #2584a9;border-radius:10px;display:grid;place-items:center;color:var(--cyan);font-size:22px;background:radial-gradient(circle,#16416a,#06101e)}
+.installer-tour-brand small{display:block;color:var(--cyan);font-size:10px;letter-spacing:.10em}.installer-tour-meta{font-size:11px;color:var(--muted)}
+.installer-tour-layout{display:grid;grid-template-columns:230px minmax(0,1fr) 275px;gap:11px;padding:12px}
+.installer-tour-steps{display:grid;gap:4px;align-content:start;max-height:600px;overflow:auto;padding-right:2px}
+.installer-tour-step{display:flex;align-items:center;gap:8px;text-align:left;border:1px solid #204665;background:#0a1a2c;color:#dceeff;border-radius:8px;padding:7px 8px;font-size:11px;font-weight:700;cursor:pointer;min-width:0}
+.installer-tour-step .num{flex:0 0 24px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#183855;border:1px solid #4988b5;color:#c8e8ff}
+.installer-tour-step[aria-current=step]{background:#0c4058;border-color:var(--cyan);box-shadow:inset 0 0 0 1px #53d6ff33}.installer-tour-step[aria-current=step] .num{background:#00a8d8;color:#061523;border-color:#a4f3ff}
+.installer-tour-main{background:#eef5fb;color:#13253a;border-radius:12px;min-height:410px;padding:22px;display:flex;flex-direction:column;min-width:0}
+.installer-tour-main .kicker{font-size:11px;color:#087d9f;font-weight:900;letter-spacing:.08em}.installer-tour-main h3{font-size:clamp(20px,2vw,28px);margin:9px 0 4px;color:#12243a}.installer-tour-main .sub{font-weight:800;color:#007eaa;margin:0 0 14px}.installer-tour-main p{color:#344b62;margin:8px 0}.installer-tour-main ul{padding-left:20px;margin:8px 0;color:#263f56}.installer-tour-main li{margin:7px 0}.installer-tour-ok{color:#078e70;font-weight:900;margin-right:7px}.installer-tour-callout{margin-top:auto;border:1px solid #a8c8db;background:#e1f0f8;border-radius:9px;padding:12px;font-size:12px;color:#284961}
+.installer-tour-guide{border:1px solid #275a79;background:#061426;border-radius:12px;padding:13px;min-width:0}.installer-tour-guide h3{margin:0 0 12px;padding:10px;border:1px solid #287b9d;border-radius:7px;background:#082b40;color:var(--cyan);font-size:13px}.installer-tour-guide p,.installer-tour-guide li{font-size:12px;color:#c2d5e8}.installer-tour-guide ul{padding-left:18px}.installer-tour-voice{display:grid;gap:8px;margin-top:12px}.installer-tour-voice label{font-size:11px;color:#a8bfd9}.installer-tour-voice select,.installer-tour-voice input{width:100%;background:#07111f;color:#edf5ff;border:1px solid #355774;border-radius:7px;padding:9px}.installer-tour-voice button{width:100%;border:1px solid #2c81a7;border-radius:7px;background:#0d3148;color:#eff8ff;padding:9px;font-weight:800;font-size:11px;cursor:pointer}.installer-tour-voice button.primary{background:linear-gradient(100deg,#53d6ff,#54e0b1);color:#041523}.installer-tour-status{font-size:11px;color:#9dc8de;margin:8px 0;min-height:34px}
+.installer-tour-bottom{border-top:1px solid #214665;padding:13px 16px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}.installer-tour-progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--cyan);font-weight:800}.installer-tour-progress{height:9px;background:#20334a;border-radius:99px;overflow:hidden;margin-top:8px}.installer-tour-progress span{display:block;height:100%;width:5%;background:linear-gradient(90deg,#1679ff,#16cfff,#54e0b1);transition:width .2s}.installer-tour-nav{display:flex;gap:8px;justify-content:flex-end}.installer-tour-nav button{border:1px solid #36aacd;border-radius:8px;padding:12px 15px;font-size:12px;font-weight:900;cursor:pointer;background:#0a2740;color:#eaf9ff}.installer-tour-nav .primary{background:linear-gradient(110deg,#53d6ff,#54e0b1);color:#041523}.installer-tour-note{font-size:12px;color:#a8c2d9;margin:8px 3px}
+@media(max-width:1000px){.installer-tour-layout{grid-template-columns:190px minmax(0,1fr)}.installer-tour-guide{grid-column:1/-1}.installer-tour-guide ul{columns:2}}
+@media(max-width:650px){.installer-tour-layout{grid-template-columns:1fr}.installer-tour-steps{grid-template-columns:1fr 1fr;max-height:310px}.installer-tour-step{font-size:10px}.installer-tour-main{min-height:0;padding:15px}.installer-tour-guide{grid-column:auto}.installer-tour-guide ul{columns:1}.installer-tour-bottom{grid-template-columns:1fr}.installer-tour-nav{justify-content:stretch}.installer-tour-nav button{flex:1}}
+
 </style>
 </head>
 <body>
 <div class="wrap">
-<header class="nav"><div class="brand">DISK <span>RECOVERY</span> PRO</div><small>Windows x64 • wydanie 1.9.2 • <a href="./przewodnik.html">PRZEWODNIK 20 KROKÓW + LEKTOR PL</a> • <a href="./demo.html">FILM</a> • <a href="./licencje.html">LICENCJE / AKTYWACJA</a></small></header>
+<header class="nav"><div class="brand">DISK <span>RECOVERY</span> PRO</div><small>Windows x64 • wydanie 1.9.0 • <a href="./przewodnik.html">PRZEWODNIK 20 KROKÓW + LEKTOR PL</a> • <a href="./demo.html">PODGLĄD + LEKTOR</a> • <a href="./licencje.html">LICENCJE / AKTYWACJA</a></small></header>
 <main>
 <section class="hero">
-<div><span class="eyebrow">CENTRUM SERWISOWE PC</span><h1>Diagnostyka.<br>Odzysk. Naprawa.</h1><p>Jedno narzędzie serwisowe do oceny stanu komputera, odzyskiwania plików i kontroli nośników — HDD, SSD, NVMe, pendrive’ów oraz kart pamięci.</p><a class="cta" href="https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.9.2/DiskRecoveryPRO_Setup.exe">⬇ Pobierz instalator Windows 1.9.2</a><div class="subnote">To najnowszy plik opublikowany w sekcji wydań (oznaczony przez GitHub jako prerelease/testowy).</div><div class="subnote">Instalator 64-bit • wymaga uruchomienia z uprawnieniami administratora dla części testów</div><div class="subnote"><a href="./licencje.html">Poznaj plany licencyjne — 1 rok, 3 lata, bezterminowo</a></div><div class="subnote"><a href="mailto:naprawapclaptop1@gmail.com?subject=Pro%C5%9Bba%20o%20licencj%C4%99%20Disk%20Recovery%20PRO">Poproś e-mailem o licencję lub kod aktywacyjny</a></div></div>
+<div><span class="eyebrow">CENTRUM SERWISOWE PC</span><h1>Diagnostyka.<br>Odzysk. Naprawa.</h1><p>Jedno narzędzie serwisowe do oceny stanu komputera, odzyskiwania plików i kontroli nośników — HDD, SSD, NVMe, pendrive’ów oraz kart pamięci.</p><a class="cta" href="https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.9.0/DiskRecoveryPRO_Setup.exe">⬇ Pobierz instalator Windows 1.9.0</a><div class="subnote">Aktualnie opublikowane wydanie (oznaczone jako prerelease/testowe w GitHub) (oznaczony przez GitHub jako prerelease/testowy).</div><div class="subnote">Instalator 64-bit • wymaga uruchomienia z uprawnieniami administratora dla części testów</div><div class="subnote"><a href="./licencje.html">Poznaj plany licencyjne — 1 rok, 3 lata, bezterminowo</a></div><div class="subnote"><a href="mailto:naprawapclaptop1@gmail.com?subject=Pro%C5%9Bba%20o%20licencj%C4%99%20Disk%20Recovery%20PRO">Poproś e-mailem o licencję lub kod aktywacyjny</a></div></div>
 <div class="monitor" aria-label="Panel diagnostyki"><div class="top"><span>DISK RECOVERY PRO</span><span class="pill">LOCAL DIAGNOSTICS</span></div><div class="orb"><div><strong>PC</strong><small>diagnostyka</small></div></div><div class="bars"><div class="barrow"><span>DYSK</span><div class="track"><div class="fill"></div></div><span>SMART*</span></div><div class="barrow"><span>CPU</span><div class="track"><div class="fill"></div></div><span>Test</span></div><div class="barrow"><span>RAM/GPU</span><div class="track"><div class="fill"></div></div><span>Test</span></div></div><div class="subnote" style="margin-top:16px">*SMART i telemetria zależą od kontrolera, sterownika oraz informacji udostępnianych przez system.</div></div>
 </section>
+
+
+<section class="installer-tour" id="installer-preview" aria-labelledby="installer-tour-heading">
+  <div class="installer-tour-header">
+    <div class="installer-tour-brand"><span class="installer-tour-icon">◉</span><span>DISK RECOVERY PRO<small>ULTIMATE EDITION • INTERAKTYWNY PRZEWODNIK</small></span></div>
+    <div class="installer-tour-meta">PODGLĄD INSTALATORA • 20 KROKÓW • LEKTOR PL</div>
+  </div>
+  <div class="installer-tour-layout">
+    <nav class="installer-tour-steps" id="installerTourSteps" aria-label="20 kroków instalacji i obsługi"></nav>
+    <section class="installer-tour-main" id="installerTourMain" aria-live="polite"></section>
+    <aside class="installer-tour-guide">
+      <h3 id="installer-tour-heading">SZCZEGÓŁOWY PRZEWODNIK</h3>
+      <p id="installerTourGuideText">Wybierz krok po lewej stronie, aby zobaczyć dokładną instrukcję.</p>
+      <ul><li>Instalacja i pierwsze uruchomienie</li><li>Licencja FREE, zakup i aktywacja</li><li>Wybór źródła i innego fizycznego celu</li><li>Skanowanie, podgląd i odzyskiwanie</li><li>Diagnostyka HDD / SSD / USB / SD / SMART</li><li>RAM / GPU / VRAM i BSOD / Minidump</li><li>Naprawa Windows wyłącznie za zgodą</li><li>Raport serwisowy i aktualizacje</li></ul>
+      <div class="installer-tour-voice">
+        <label for="installerTourVoice">LEKTOR POLSKI — WYBIERZ GŁOS</label><select id="installerTourVoice"><option>Wczytywanie dostępnych głosów…</option></select>
+        <label for="installerTourRate">Tempo: <span id="installerTourRateLabel">0,92×</span></label><input id="installerTourRate" type="range" min="0.78" max="1.08" step="0.01" value="0.92">
+        <button class="primary" id="installerTourTestVoice" type="button">🔊 PRÓBKA GŁOSU</button><button id="installerTourSpeak" type="button">▶ ODCZYTAJ TEN KROK</button><button id="installerTourStop" type="button">■ ZATRZYMAJ</button>
+        <div class="installer-tour-status" id="installerTourVoiceStatus" aria-live="polite">Lektor startuje tylko po kliknięciu. Wybierz głos PL Natural/Online, jeśli jest dostępny.</div>
+      </div>
+    </aside>
+  </div>
+  <div class="installer-tour-bottom"><div><div class="installer-tour-progress-label"><span>POSTĘP PRZEWODNIKA</span><span id="installerTourProgressText">KROK 1 / 20 • 5%</span></div><div class="installer-tour-progress"><span id="installerTourProgressBar"></span></div></div><div class="installer-tour-nav"><button id="installerTourPrev" type="button">← WSTECZ</button><button id="installerTourNext" class="primary" type="button">DALEJ →</button></div></div>
+</section>
+<p class="installer-tour-note">Czysty dźwięk: strona nie odtwarza starej ścieżki MP4. Lektor korzysta z wybranego głosu Windows/przeglądarki. Jeśli dostępne głosy brzmią sztucznie, doinstaluj w Windows polski głos Natural/Online lub użyj funkcji Czytaj na głos w Microsoft Edge.</p>
 
 <section class="demo-section" id="interactive-tour" aria-labelledby="tour-heading">
   <h2 id="tour-heading">Zobacz skanowanie, znalezione pliki i każdą ważną funkcję</h2>
@@ -93,7 +136,7 @@
 </div>
 <div class="warning"><strong>Uwaga na RAW i komunikat „sformatuj dysk”.</strong> Jeżeli na nośniku są ważne dane, nie formatuj go i nie uruchamiaj naprawy zapisującej zmiany przed wykonaniem obrazu lub kopii. Nadpisanych albo fizycznie zniszczonych sektorów nie da się odtworzyć samym programem.</div>
 </section>
-<section class="section"><div class="download"><div><span class="eyebrow">INSTALATOR</span><h2 style="margin-top:12px">Zainstaluj Disk Recovery PRO</h2><p>Najnowszy opublikowany instalator v1.9.2 jest dostępny w oficjalnym wydaniu GitHub (status: prerelease/testowy). Portal nie przechowuje kopii EXE. Przed instalacją sprawdź wersję, sumę SHA-256 i wyniki ochrony Windows.</p></div><a class="cta" href="https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.9.2/DiskRecoveryPRO_Setup.exe">Pobierz DiskRecoveryPRO_Setup.exe</a></div></section>
+<section class="section"><div class="download"><div><span class="eyebrow">INSTALATOR</span><h2 style="margin-top:12px">Zainstaluj Disk Recovery PRO</h2><p>Najnowszy opublikowany instalator v1.9.2 jest dostępny w oficjalnym wydaniu GitHub (status: prerelease/testowy). Portal nie przechowuje kopii EXE. Przed instalacją sprawdź wersję, sumę SHA-256 i wyniki ochrony Windows.</p></div><a class="cta" href="https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.9.0/DiskRecoveryPRO_Setup.exe">Pobierz DiskRecoveryPRO_Setup.exe</a></div></section>
 </main>
 <footer class="footer"><span>Disk Recovery PRO • 1.9.2</span><span>Wynik „wykryto” nie oznacza pełnej sprawności sprzętu. Testy są diagnostyką wstępną.</span></footer>
 </div>
