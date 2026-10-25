@@ -1,1 +1,66 @@
-<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07101f"><title>Dziękujemy za zakup — Disk Recovery PRO</title><style>:root{color-scheme:dark}body{margin:0;background:#07101f;color:#edf5ff;font:16px/1.65 "Segoe UI",Arial,sans-serif}.wrap{max-width:760px;margin:10vh auto;padding:30px}.card{background:#0d1c31;border:1px solid #234566;border-radius:18px;padding:32px}.label{color:#4fdcff;font-weight:900;letter-spacing:.1em;font-size:12px}.ok{color:#54e0b1}a{color:#4fdcff}.cta{display:inline-block;padding:12px 16px;background:#00a58b;color:#031725;font-weight:900;border-radius:8px;text-decoration:none;margin-top:12px}</style></head><body><div class="wrap"><div class="card"><span class="label">DISK RECOVERY PRO • LICENCJE</span><h1>Dziękujemy za zamówienie</h1><p id="state">Sprawdzanie zamówienia…</p><p>Licencja jest wystawiana wyłącznie po weryfikacji potwierdzonej płatności przez serwer płatniczy. Powrót na tę stronę sam w sobie nie aktywuje programu.</p><p>Po wystawieniu licencji otrzymasz plik <code>.drplic</code> i link do instalatora. W aplikacji kliknij status licencji i wybierz <strong>WCZYTAJ PLIK</strong> dla pliku .drplic albo <strong>WPISZ KOD</strong> dla całego kodu DRP1:. Sprawdź „AKTYWNA I ZAPISANA”, zamknij aplikację i uruchom ponownie, aby potwierdzić, że licencja jest zapamiętana.</p><a class="cta" href="https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/tag/v1.9.3">Otwórz oficjalne wydanie aplikacji</a><p><a href="./licencje.html">Powrót do licencji</a></p></div></div><script>const q=new URLSearchParams(location.search);document.getElementById('state').textContent=q.get('session_id')?'Zamówienie przekazano do weryfikacji. Sprawdź e-mail podany przy płatności.':'Brak identyfikatora sesji płatności. Nie traktuj tej strony jako potwierdzenia zakupu.';</script></body></html>
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07101f">
+<title>CD-Key i instalator — Disk Recovery PRO</title>
+<style>
+:root{color-scheme:dark;--bg:#07101f;--panel:#0d1c31;--border:#234566;--text:#edf5ff;--muted:#a7bbd4;--cyan:#4fdcff;--blue:#087ed0;--green:#00bd87;--orange:#ffb05b}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 78% 0,#173b67 0,transparent 38%),var(--bg);color:var(--text);font:16px/1.65 "Segoe UI",Arial,sans-serif}.wrap{max-width:900px;margin:6vh auto;padding:24px}.card{background:linear-gradient(150deg,#102641,#0a1728);border:1px solid var(--border);border-radius:18px;padding:clamp(22px,5vw,42px);box-shadow:0 20px 70px #0005}.label{color:var(--cyan);font-weight:900;letter-spacing:.1em;font-size:12px}.status{border:1px solid #2b6784;background:#0a1a2d;padding:15px 18px;border-radius:10px;margin:20px 0;color:var(--muted)}.ok{color:#54e0b1}.error{color:#ffbd87}a{color:var(--cyan)}.cta,button{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;background:linear-gradient(110deg,#008bd4,#00bc9a);color:#031725;font-weight:900;border:0;border-radius:8px;text-decoration:none;margin:7px 8px 7px 0;cursor:pointer;font-size:14px}.secondary{background:#14253a;color:var(--text);border:1px solid var(--border)}.field{width:100%;min-height:132px;padding:14px;background:#061324;color:#d7f9ff;border:1px solid var(--cyan);border-radius:8px;font:12px/1.5 Consolas,monospace;overflow-wrap:anywhere}.muted{color:var(--muted)}[hidden]{display:none!important}.code-title{margin-bottom:8px;color:var(--cyan);font-weight:800}.details{display:grid;grid-template-columns:1fr 1fr;gap:10px}.detail{padding:12px;background:#08182a;border:1px solid #203f5e;border-radius:8px}.detail span{display:block;font-size:12px;color:var(--muted)}.detail strong{overflow-wrap:anywhere}@media(max-width:620px){.wrap{padding:12px;margin:2vh auto}.details{grid-template-columns:1fr}.cta,button{width:100%;margin:6px 0}}
+</style></head>
+<body><main class="wrap"><section class="card">
+<span class="label">DISK RECOVERY PRO • AUTOMATYCZNE WYDANIE LICENCJI</span>
+<h1>Dziękujemy za zakup</h1>
+<p>Ta strona sprawdza zamówienie bezpośrednio na serwerze licencji. Dla SumUp serwer sprawdza stan Checkout i zgodną transakcję SUCCESSFUL w API; dla Stripe sprawdza licencję utworzoną przez zweryfikowany webhook. Sam powrót na tę stronę nie wystarcza.</p>
+<div id="status" class="status" role="status" aria-live="polite">Sprawdzanie zamówienia…</div>
+<section id="result" hidden>
+ <div class="details"><div class="detail"><span>Plan</span><strong id="plan">—</strong></div><div class="detail"><span>Numer licencji</span><strong id="licenseId">—</strong></div><div class="detail"><span>Wystawiono (UTC)</span><strong id="issuedUtc">—</strong></div><div class="detail"><span>Ważna do (UTC)</span><strong id="expiresUtc">Bezterminowo</strong></div></div>
+ <h2>1. Twój CD-Key</h2><p class="muted">Skopiuj cały kod, łącznie z prefiksem <code>DRP1:</code>. W aplikacji wybierz status licencji → <strong>WPISZ KOD</strong>. Alternatywnie pobierz plik .drplic.</p>
+ <div class="code-title">KOD AKTYWACYJNY DRP1</div><textarea id="activationCode" class="field" readonly spellcheck="false" aria-label="Kod aktywacyjny Disk Recovery PRO"></textarea>
+ <button id="copyCode">⧉ KOPIUJ CD-KEY</button><button id="downloadCode" class="secondary">⬇ ZAPISZ KOD .TXT</button><button id="downloadLicense" class="secondary">⬇ POBIERZ LICENCJĘ .DRPLIC</button>
+ <h2>2. Pobierz instalator</h2><p>Po instalacji uruchom program, wpisz CD-Key lub wczytaj plik .drplic. Sprawdź komunikat potwierdzający zapis licencji.</p>
+ <a id="installer" class="cta" href="#" rel="noopener">⬇ POBIERZ INSTALATOR WINDOWS</a>
+ <p class="muted">Zachowaj kod i plik licencji. Nie publikuj ich ani nie wysyłaj innym osobom. Samo wejście na tę stronę nie aktywuje programu — licencja musi zostać przyjęta w aplikacji.</p>
+</section>
+<section id="notConfigured" hidden><p class="error">Strona zwrotna została otwarta, ale serwer licencji nie jest skonfigurowany w publicznym portalu. Nie oznacza to, że płatność została potwierdzona.</p></section>
+<p><a href="./licencje.html">← Powrót do licencji</a> · <a href="./przewodnik.html">Przewodnik instalacji (20 kroków)</a> · <a href="mailto:naprawapclaptop1@gmail.com?subject=Disk%20Recovery%20PRO%20-%20problem%20z%20licencj%C4%85">Zgłoś problem z zamówieniem</a></p>
+</section></main>
+<script>
+(async()=>{
+ const status=document.getElementById('status'), result=document.getElementById('result');
+ const q=new URLSearchParams(location.search), sessionId=q.get('session_id'), sumupOrderRef=q.get('order_ref');
+ const orderId=sessionId||sumupOrderRef;
+ const validOrderId=!!orderId&&(/^cs_(test|live)_[A-Za-z0-9_]{8,160}$/.test(orderId)||/^DRP-[A-F0-9]{32}$/.test(orderId));
+ let config;
+ const planNames={YEAR_1:'Licencja na 1 rok',YEAR_3:'Licencja na 3 lata',LIFETIME:'Licencja bezterminowa'};
+ function setStatus(t,kind='normal'){status.textContent=t;status.className='status'+(kind==='ok'?' ok':kind==='error'?' error':'');}
+ function decodeBase64(b64){const bytes=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));return new Blob([bytes],{type:'application/json'});}
+ function saveBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);}
+ if(!validOrderId){setStatus('Brak prawidłowego identyfikatora zamówienia SumUp lub Stripe. Nie wyświetlono klucza licencji.','error');return;}
+ try{const cr=await fetch('./license-config.json',{cache:'no-store'});if(!cr.ok)throw new Error('Nie można wczytać konfiguracji portalu.');config=await cr.json();}catch(e){setStatus('Nie można sprawdzić konfiguracji serwera licencji. Skontaktuj się z pomocą.','error');document.getElementById('notConfigured').hidden=false;return;}
+ const apiBase=String(config.checkoutApi||'').trim().replace(/\/+$/,'');
+ if(!/^https:\/\//i.test(apiBase)||/(YOUR-|example\.com|localhost)/i.test(apiBase)){setStatus('Automatyczna aktywacja nie jest skonfigurowana. Nie pokazujemy kodu na podstawie samego powrotu z płatności. Skontaktuj się z pomocą.','error');document.getElementById('notConfigured').hidden=false;return;}
+ let ready=null;
+ for(let attempt=0;attempt<75;attempt++){
+  try{
+   const r=await fetch(apiBase+'/api/orders/'+encodeURIComponent(orderId),{cache:'no-store'});
+   const data=await r.json().catch(()=>({}));
+   if(r.ok&&data.status==='ready'&&data.activationCode&&data.licenseFileBase64){ready=data;break;}
+   if(data.status==='not_paid'){setStatus(data.message||'Płatność nie została zakończona. CD-Key nie został wystawiony.','error');return;}
+   if(r.status>=400&&r.status!==404&&r.status!==202){setStatus(data.detail||data.error||data.message||'Serwer nie mógł odczytać zamówienia. Sprawdź konfigurację i skontaktuj się z pomocą.','error');document.getElementById('notConfigured').hidden=false;return;}
+   setStatus('Płatność została przekazana do sprawdzenia. Czekam na potwierdzenie operatora i wygenerowanie licencji… Próba '+(attempt+1)+' z 75.');
+  }catch(e){if(attempt>=2){setStatus('Nie udało się połączyć z serwerem licencji: '+(e.message||'błąd połączenia')+'. Sprawdź połączenie i zgłoś numer zamówienia.','error');return;}}
+  await new Promise(resolve=>setTimeout(resolve,4000));
+ }
+ if(!ready){setStatus('Nie otrzymano jeszcze potwierdzenia gotowej licencji. Nie płać ponownie. Sprawdź e-mail lub zgłoś numer zamówienia do pomocy.','error');return;}
+ document.getElementById('plan').textContent=planNames[ready.plan]||ready.plan||'—';
+ document.getElementById('licenseId').textContent=ready.licenseId||'—';
+ document.getElementById('issuedUtc').textContent=ready.issuedUtc||'—';
+ document.getElementById('expiresUtc').textContent=ready.expiresUtc||'Bezterminowo';
+ document.getElementById('activationCode').value=ready.activationCode;
+ const installer=document.getElementById('installer');
+ if(/^https:\/\//i.test(ready.installerUrl||'')){installer.href=ready.installerUrl;}else{installer.hidden=true;}
+ document.getElementById('copyCode').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(ready.activationCode);setStatus('CD-Key skopiowano. W aplikacji wybierz WPISZ KOD.','ok');}catch{const box=document.getElementById('activationCode');box.focus();box.select();setStatus('Zaznaczono kod. Skopiuj go skrótem Ctrl+C.','ok');}});
+ document.getElementById('downloadCode').addEventListener('click',()=>saveBlob(new Blob([ready.activationCode+'\r\n'],{type:'text/plain;charset=utf-8'}),'DiskRecoveryPRO_CD-Key.txt'));
+ document.getElementById('downloadLicense').addEventListener('click',()=>saveBlob(decodeBase64(ready.licenseFileBase64),ready.licenseFileName||'DiskRecoveryPRO.drplic'));
+ result.hidden=false;setStatus('PŁATNOŚĆ POTWIERDZONA • LICENCJA WYSTAWIONA • CD-KEY GOTOWY','ok');
+})();
+</script></body></html>

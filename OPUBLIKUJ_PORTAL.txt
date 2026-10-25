@@ -1,7 +1,12 @@
-DISK RECOVERY PRO 1.9.3 — PORTAL I LICENCJE
+DISK RECOVERY PRO — PORTAL I AUTOMATYCZNY CD-KEY (FIX94)
 
-1. START_BUILD_PORTAL_INSTALLER.bat buduje aplikację, instalator i generator licencji administratora.
-2. Po poprawnym buildzie uruchamia się publikacja całego folderu portal.
-3. Pliki licencje.html, license-config.json i po-zakupie.html trafiają na stronę.
-4. Zakup online pozostaje wyłączony, dopóki checkoutApi i usługa Admin/LicenseService nie zostaną skonfigurowane.
-5. Klucz prywatny generatora zostaje w katalogu administratora; nie kopiuj go do portal ani do instalatora klienta.
+1. Portal licencji wykorzystuje serwer Admin/LicenseService oraz SumUp Hosted Checkout.
+2. Ustaw w hostingu: DRP_PAYMENT_PROVIDER=sumup, SUMUP_API_KEY, SUMUP_MERCHANT_CODE, DRP_LICENSE_PRIVATE_KEY_PEM, DRP_LICENSE_SERVICE_PUBLIC_URL (publiczny HTTPS), DRP_PORTAL_BASE_URL, DRP_PORTAL_ORIGIN, DRP_INSTALLER_URL oraz trwały DRP_LICENSE_ORDER_DIR. Opcjonalnie skonfiguruj RESEND_API_KEY i DRP_FROM_EMAIL do wysyłki licencji e-mailem.
+3. Serwer tworzy Checkout przez POST https://api.sumup.com/v0.1/checkouts i zapisuje lokalne zamówienie. Strona zwrotna ma parametr order_ref; CD-Key pojawia się wyłącznie po weryfikacji API SumUp: zgodnego checkout_reference, Merchant Code, kwoty, PLN, statusu PAID i transakcji SUCCESSFUL.
+4. Ustaw `checkoutApi` w portal/license-config.json na bazowy HTTPS adres wdrożonego serwera bez końcowego ukośnika. Włącz checkoutEnabled=true wyłącznie po teście end-to-end — publiczny pakiet źródłowy celowo pozostawia przyciski płatności wyłączone.
+5. Publikacja HTML na GitHub Pages nie wdraża serwera ASP.NET Core. Serwer musi być osobno opublikowany i dostępny pod swoim własnym adresem HTTPS.
+6. Zrób test zamówienia: kupno → SumUp → powrót na po-zakupie.html?order_ref=... → potwierdzenie API → podpis .drplic → CD-Key → pobranie instalatora. Przetestuj także płatność nieudaną i anulowanie. Sam URL powrotu nigdy nie wydaje klucza.
+7. Starsze statyczne linki/QR SumUp nie mają połączenia z zamówieniem i nie wspierają automatycznego CD-Key. Używaj dynamicznego Checkout z serwera.
+8. Klucz prywatny licencji oraz SUMUP_API_KEY pozostają wyłącznie na serwerze i w prywatnym pakiecie administratora. Nigdy nie publikuj ich w portalu, instalatorze klienta ani publicznym repozytorium.
+
+Stripe pozostaje alternatywną integracją przez DRP_PAYMENT_PROVIDER=stripe, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET i trzy identyfikatory cen Stripe.

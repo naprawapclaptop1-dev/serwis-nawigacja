@@ -7,24 +7,23 @@
       "id": "YEAR_1",
       "name": "1 rok",
       "priceLabel": "149 zł / rok",
-      "sumupUrl": "https://pay.sumup.com/b2c/QIVKPWN7",
       "checkoutEnabled": false
     },
     {
       "id": "YEAR_3",
       "name": "3 lata",
       "priceLabel": "299 zł / 3 lata",
-      "sumupUrl": "https://pay.sumup.com/b2c/Q4Y1U5HW",
       "checkoutEnabled": false
     },
     {
       "id": "LIFETIME",
       "name": "Bezterminowa",
       "priceLabel": "499 zł jednorazowo",
-      "sumupUrl": "https://pay.sumup.com/b2c/QUZ2PHGU",
       "checkoutEnabled": false
     }
   ],
   "licenseRequestEmail": "naprawapclaptop1@gmail.com",
-  "note": "SumUp payment links are static. After payment, customer sends an email with the order ID; administrator verifies the transaction manually before generating .drplic and DRP1 code."
+  "note": "Automatyczny checkout używa SumUp Hosted Checkout przez Admin/LicenseService. Przed włączeniem planów wdroż serwer HTTPS, ustaw DRP_PAYMENT_PROVIDER=sumup, SUMUP_API_KEY, SUMUP_MERCHANT_CODE, DRP_LICENSE_PRIVATE_KEY_PEM, DRP_LICENSE_SERVICE_PUBLIC_URL oraz właściwe URL-e portalu i instalatora. checkoutApi i checkoutEnabled pozostają wyłączone, dopóki prawdziwy serwer z sekretami nie zostanie wdrożony. Statyczne linki SumUp/QR nie potwierdzają automatycznie zamówienia.",
+  "checkoutProvider": "sumup-hosted-checkout",
+  "automaticLicenseDelivery": true
 }
