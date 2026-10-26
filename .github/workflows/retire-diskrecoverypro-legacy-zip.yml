@@ -15,6 +15,30 @@ jobs:
   retire-legacy-archive:
     runs-on: ubuntu-latest
     steps:
+      - name: Hide broken v1.9.6 prerelease until Windows installation is verified
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Existing v1.9.5 client code checks the GitHub releases API before the manifest
+          # and does not filter prereleases. Hide the known-broken v1.9.6 candidate so those
+          # clients cannot automatically offer its failing installer.
+          RELEASE_JSON="$(gh release view v1.9.6 --repo "$REPOSITORY" --json isDraft,isPrerelease 2>/dev/null || true)"
+          if [[ -z "$RELEASE_JSON" ]]; then
+            echo "v1.9.6 release not found; nothing to hide."
+            exit 0
+          fi
+          IS_DRAFT="$(printf '%s' "$RELEASE_JSON" | gh api --input - /repos/"$REPOSITORY"/releases/tags/v1.9.6 --jq '.draft' 2>/dev/null || true)"
+          IS_PRERELEASE="$(printf '%s' "$RELEASE_JSON" | python3 -c 'import json,sys; print(str(json.load(sys.stdin).get("isPrerelease", False)).lower())')"
+          if [[ "$IS_PRERELEASE" == "true" && "$IS_DRAFT" != "true" ]]; then
+            echo "Marking known-broken v1.9.6 release as draft to stop public updater discovery."
+            gh release edit v1.9.6 --repo "$REPOSITORY" --draft
+          else
+            echo "v1.9.6 is already draft or is not a prerelease; no change required."
+          fi
+
       - name: Remove obsolete update archive from every release
         env:
           GH_TOKEN: ${{ github.token }}
