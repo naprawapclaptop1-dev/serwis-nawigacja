@@ -1,9 +1,9 @@
 {
-  "version": "1.9.6",
+  "version": "1.9.5",
   "channel": "stable",
-  "release_notes": "Disk Recovery PRO v1.9.6. Oficjalny instalator Windows EXE, aktualizator online i weryfikacja SHA-256.",
-  "downloadUrl": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.9.6/DiskRecoveryPRO_Setup.exe",
-  "installerUrl": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.9.6/DiskRecoveryPRO_Setup.exe",
-  "sha256": "563b9944cc07a8d98d256030fbbaf732b39de2d9a61d1821ed823e9d9c69460f",
+  "release_notes": "Disk Recovery PRO v1.9.5. Przywrócenie ostatniej działającej wersji instalatora po problemach instalacji v1.9.6.",
+  "downloadUrl": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.9.5/DiskRecoveryPRO_Setup.exe",
+  "installerUrl": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.9.5/DiskRecoveryPRO_Setup.exe",
+  "sha256": "9ab25cff3f47fc70955612b2e5a7768921c86df9be585a311ea002fcbbe7ee86",
   "updateMode": "verified-installer-exe"
 }
