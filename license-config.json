@@ -1,7 +1,7 @@
 {
   "checkoutApi": "",
   "currency": "PLN",
-  "installerUrl": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.9.5/DiskRecoveryPRO_Setup.exe",
+  "installerUrl": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.9.6/DiskRecoveryPRO_Setup.exe",
   "plans": [
     {
       "id": "YEAR_1",
