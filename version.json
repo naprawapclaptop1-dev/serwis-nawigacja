@@ -3,6 +3,6 @@
   "version": "1.9.4",
   "installer": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.9.4/DiskRecoveryPRO_Setup.exe",
   "updatePackage": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.9.4/DiskRecoveryPRO_Setup.exe",
-  "sha256": "5dadc3452bb2cd3c55bf79ba11b78746fd564acd5d2245c75032bc116e6c3e31",
+  "sha256": "e5afac9a33cf51d8227f22f21f9cc6d6b5b1daaa37aa10d61e6c04fc9bd61919",
   "updateMode": "manual-official-release"
 }

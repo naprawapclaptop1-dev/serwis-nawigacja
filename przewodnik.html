@@ -1,6 +1,6 @@
 <!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#07101f"><title>Instrukcja 20 kroków — Disk Recovery PRO</title>
 <style>:root{color-scheme:dark;--bg:#06101f;--panel:#0d1c31;--line:#234566;--text:#edf5ff;--muted:#a7bbd4;--cyan:#4fdcff;--green:#54e0b1}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0,#173b67 0,transparent 34%),var(--bg);color:var(--text);font:16px/1.65 "Segoe UI",Arial,sans-serif}.wrap{max-width:1120px;margin:auto;padding:22px}.nav{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:10px 0 18px}.brand{font-weight:900;text-decoration:none;color:var(--text)}.brand span{color:var(--cyan)}a{color:var(--cyan)}.btn,button{display:inline-flex;align-items:center;justify-content:center;border:1px solid #36769d;background:#0d3148;color:var(--text);border-radius:8px;padding:10px 13px;text-decoration:none;font-weight:800;cursor:pointer}.btn.primary,button.primary{background:linear-gradient(110deg,#4fdcff,#54e0b1);color:#041725}.panel{background:linear-gradient(140deg,#102743,#0b1728);border:1px solid var(--line);border-radius:15px;padding:18px;margin:18px 0}.controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}.controls label{display:block;color:var(--muted);font-size:13px;margin-bottom:5px}.controls select,.controls input{width:100%;padding:10px;background:#061426;color:var(--text);border:1px solid #355574;border-radius:7px}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.steps{display:grid;grid-template-columns:1fr 1fr;gap:12px}.step{background:#0c1a2c;border:1px solid #233d5b;border-radius:13px;padding:16px}.step h2{font-size:18px;margin:0 0 8px}.step p{color:#c0d1e5;margin:0}.num{color:var(--cyan);font-weight:900}.notice{background:#10283d;border:1px solid #294d68;border-radius:10px;padding:12px;color:var(--muted)}.foot{border-top:1px solid var(--line);margin-top:28px;padding:18px 0;color:var(--muted);font-size:13px}@media(max-width:720px){.steps,.controls{grid-template-columns:1fr}.wrap{padding:14px}}</style></head><body><div class="wrap"><header class="nav"><a class="brand" href="./index.html">DISK <span>RECOVERY</span> PRO</a><div class="actions"><a class="btn" href="./index.html">Portal</a><a class="btn" href="./licencje.html">Licencje / aktywacja</a></div></header>
-<main><h1>Instrukcja obsługi w 20 krokach</h1><p class="notice">Podgląd MP4 nie zawiera ścieżki audio; lektor jest odtwarzany osobno przez wybrany głos polski. Lektor poniżej korzysta z polskich głosów zainstalowanych w Windows/przeglądarce. Wybierz głos, który brzmi najlepiej; dostępność i naturalność zależy od systemu. Tekst wszystkich instrukcji jest zawsze widoczny.</p>
+<main><h1>Instrukcja obsługi w 20 krokach</h1><p class="notice">Podgląd MP4 nie zawiera ścieżki audio; lektor jest odtwarzany osobno przez wybrany głos polski. Lektor najpierw wybiera głos polski. Jeśli system go nie udostępnia, próbuje użyć domyślnego głosu przeglądarki zamiast zostawiać ciszę; wymowa może wtedy brzmieć mniej naturalnie. Tekst wszystkich instrukcji jest zawsze widoczny.</p>
 <section class="panel"><h2>Lektor polski</h2><div class="controls"><div><label for="voice">Dostępny głos</label><select id="voice"><option>Wczytywanie głosów…</option></select></div><div><label for="rate">Tempo: <span id="rateLabel">0,92×</span></label><input id="rate" type="range" min="0.75" max="1.1" step="0.01" value="0.92"></div></div><div class="actions"><button id="testVoice">🔊 Próbka wybranego głosu</button><button id="readAll" class="primary">▶ Czytaj wszystkie kroki</button><button id="pause">⏸ Pauza / wznowienie</button><button id="stop">■ Zatrzymaj</button></div><p id="voiceStatus" class="notice" aria-live="polite">Wczytywanie dostępnych głosów…</p></section>
 <section class="steps" id="steps">
 <article class="step"><h2><span class="num">01.</span> Pobierz instalator</h2><p>Pobierz DiskRecoveryPRO_Setup.exe z oficjalnego wydania. Sprawdź wersję i sumę SHA-256, jeśli została opublikowana. Nie uruchamiaj instalatora z nieznanego portalu.</p><div class="actions"><a class="btn" href="https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/tag/v1.9.4">Oficjalne wydanie</a><button data-read>▶ Odsłuchaj</button></div></article>
@@ -24,5 +24,127 @@
 <article class="step"><h2><span class="num">19.</span> Zakup i aktywacja</h2><p>Wybierz plan SumUp i zachowaj potwierdzenie. Po ręcznej weryfikacji otrzymasz .drplic lub DRP1:. W aplikacji wybierz „WCZYTAJ PLIK” albo „WPISZ KOD”. Uruchom program ponownie i sprawdź, że status licencji nadal jest aktywny.</p><div class="actions"><a class="btn" href="./licencje.html">Kup / aktywuj</a><button data-read>▶ Odsłuchaj</button></div></article>
 <article class="step"><h2><span class="num">20.</span> Aktualizacje i zgłoszenie błędu</h2><p>Sprawdź wydanie, poczekaj na pobranie i weryfikację SHA-256, następnie zatwierdź instalator/UAC. Jeśli coś nie działa, zapisz raport i zgłoś problem właścicielowi; logi wysyłaj tylko za zgodą.</p><div class="actions"><a class="btn" href="mailto:naprawapclaptop1@gmail.com?subject=Zg%C5%82oszenie%20Disk%20Recovery%20PRO">Zgłoś problem</a><button data-read>▶ Odsłuchaj</button></div></article>
 </section></main><footer class="foot">Disk Recovery PRO • Instrukcja offline • <a href="./index.html">Portal</a></footer></div>
-<script>(()=>{const sel=document.getElementById('voice'),status=document.getElementById('voiceStatus'),rate=document.getElementById('rate'),rateLabel=document.getElementById('rateLabel'),testVoice=document.getElementById('testVoice'),all=document.getElementById('readAll'),pause=document.getElementById('pause'),stop=document.getElementById('stop'),steps=[...document.querySelectorAll('.step')];let voices=[],idx=0,reading=false;function load(){if(!('speechSynthesis'in window)){sel.innerHTML='<option>Odczyt mowy niedostępny</option>';sel.disabled=true;all.disabled=true;status.textContent='Przeglądarka nie obsługuje odczytu głosu. Wszystkie instrukcje pozostają widoczne jako tekst.';return;}voices=window.speechSynthesis.getVoices().filter(v=>/^pl(-|_)/i.test(v.lang)||/polish|polski/i.test(v.name));sel.innerHTML='';if(!voices.length){sel.add(new Option('Brak polskiego głosu — doinstaluj w Windows',''));status.textContent='Nie znaleziono głosu pl-PL. Ustawienia Windows → Czas i język → Mowa: doinstaluj polski głos, wróć i odśwież stronę.';return;}voices.forEach((v,i)=>sel.add(new Option(v.name+' ('+v.lang+')'+(v.default?' • domyślny':''),String(i))));let preferred=voices.findIndex(v=>/natural|polish.*(female|natural)/i.test(v.name));sel.selectedIndex=preferred>=0?preferred:0;status.textContent='Wybrany głos: '+voices[sel.selectedIndex].name+'. Wybierz „Odsłuchaj” przy kroku i ustaw tempo.';}function speak(txt,onend){if(!('speechSynthesis'in window))return;if(!voices.length){status.textContent='Brak polskiego głosu. Doinstaluj go w Windows → Czas i język → Mowa; instrukcje pozostają widoczne.';return;}window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang='pl-PL';u.voice=voices[Number(sel.value)]||voices[0];u.rate=Number(rate.value)||0.92;u.pitch=1;u.volume=1;u.onend=()=>onend&&onend();u.onerror=e=>{reading=false;status.textContent='Odczyt mowy nie powiódł się ('+e.error+'). Skorzystaj z widocznego tekstu.';all.textContent='▶ Czytaj wszystkie kroki';};window.speechSynthesis.speak(u);}function next(){if(!reading||idx>=steps.length){reading=false;all.textContent='▶ Czytaj wszystkie kroki';status.textContent='Koniec instrukcji.';return;}const el=steps[idx];el.scrollIntoView({behavior:'smooth',block:'center'});const text='Krok '+(idx+1)+'. '+el.querySelector('h2').innerText+'. '+el.querySelector('p').innerText;status.textContent='Czytam krok '+(idx+1)+' z 20.';speak(text,()=>{idx++;next();});}testVoice.onclick=()=>{reading=false;all.textContent='▶ Czytaj wszystkie kroki';status.textContent='Próbka głosu: posłuchaj, czy wybrany polski głos brzmi naturalnie. Jeśli nie, wybierz inny głos z listy.';speak('Dzień dobry. To próbka lektora Disk Recovery PRO. Po wybraniu głosu możesz odsłuchać każdą instrukcję, wstrzymać ją i zmienić tempo.',null);};
-document.querySelectorAll('[data-read]').forEach(b=>b.addEventListener('click',()=>{reading=false;all.textContent='▶ Czytaj wszystkie kroki';const e=b.closest('.step');status.textContent='Czytam: '+e.querySelector('h2').innerText;speak(e.querySelector('h2').innerText+'. '+e.querySelector('p').innerText);}));all.onclick=()=>{if(reading){reading=false;window.speechSynthesis.cancel();all.textContent='▶ Czytaj wszystkie kroki';return;}reading=true;idx=0;all.textContent='■ Zatrzymaj odczyt';next();};pause.onclick=()=>{if(window.speechSynthesis.paused)window.speechSynthesis.resume();else if(window.speechSynthesis.speaking)window.speechSynthesis.pause();};stop.onclick=()=>{reading=false;window.speechSynthesis.cancel();all.textContent='▶ Czytaj wszystkie kroki';status.textContent='Lektor zatrzymany.';};rate.oninput=()=>rateLabel.textContent=Number(rate.value).toFixed(2).replace('.',',')+'×';load();if('speechSynthesis'in window)window.speechSynthesis.onvoiceschanged=load;})();</script></body></html>
+<script>(()=>{
+'use strict';
+const synth=window.speechSynthesis;
+const sel=document.getElementById('voice');
+const status=document.getElementById('voiceStatus');
+const rate=document.getElementById('rate');
+const rateLabel=document.getElementById('rateLabel');
+const testVoice=document.getElementById('testVoice');
+const all=document.getElementById('readAll');
+const pause=document.getElementById('pause');
+const stop=document.getElementById('stop');
+const steps=[...document.querySelectorAll('.step')];
+let availableVoices=[], displayedVoices=[], idx=0, reading=false, voiceLoadTimer=null;
+const defaultLabel='Domyślny głos systemu (awaryjnie)';
+function setStatus(message){if(status)status.textContent=message;}
+function supportsSpeech(){
+  if(!synth || typeof window.SpeechSynthesisUtterance!=='function'){
+    sel.disabled=true; testVoice.disabled=true; all.disabled=true; pause.disabled=true; stop.disabled=true;
+    setStatus('Ta przeglądarka nie udostępnia syntezy mowy. Zaktualizuj Chrome/Edge lub skorzystaj z widocznego tekstu.');
+    return false;
+  }
+  return true;
+}
+function load(){
+  if(!supportsSpeech())return;
+  availableVoices=synth.getVoices()||[];
+  const pl=availableVoices.filter(v=>/^pl(?:[-_]|$)/i.test(v.lang)||/polski|polish/i.test(v.name+' '+v.lang));
+  displayedVoices=pl.length?pl:availableVoices;
+  const oldValue=sel.value;
+  sel.innerHTML='';
+  if(displayedVoices.length){
+    displayedVoices.forEach((v,i)=>sel.add(new Option(v.name+' ('+v.lang+')'+(v.default?' • domyślny':''),String(i))));
+    const preferred=displayedVoices.findIndex(v=>pl.length && /natural|neural|polish.*(female|natural)|paulina|marek/i.test(v.name));
+    const previous=displayedVoices.findIndex((v,i)=>String(i)===oldValue);
+    sel.selectedIndex=previous>=0?previous:(preferred>=0?preferred:Math.max(0,displayedVoices.findIndex(v=>v.default)));
+    sel.disabled=false;
+    if(pl.length){
+      setStatus('Dostępny głos polski: '+displayedVoices[sel.selectedIndex].name+'. Kliknij „Próbka głosu”, aby sprawdzić dźwięk.');
+    }else{
+      sel.insertBefore(new Option(defaultLabel,'__system__'),sel.firstChild);
+      sel.value='__system__';
+      setStatus('Nie znaleziono głosu polskiego. Nie wyciszam lektora: użyję domyślnego głosu przeglądarki/Windows. Może mieć obcy akcent; dla naturalnej polszczyzny doinstaluj polski głos w Windows.');
+    }
+  }else{
+    sel.add(new Option(defaultLabel,'__system__'));
+    sel.value='__system__';
+    sel.disabled=false;
+    setStatus('Lista głosów jest pusta. Przy kliknięciu spróbuję uruchomić domyślną syntezę mowy systemu zamiast milczeć.');
+    // Some Windows/browser versions populate voices asynchronously only after a short delay.
+    clearTimeout(voiceLoadTimer);
+    voiceLoadTimer=setTimeout(()=>{
+      const later=synth.getVoices()||[];
+      if(later.length){availableVoices=later;load();}
+    },900);
+  }
+}
+function chosenVoice(){
+  if(!sel.value||sel.value==='__system__')return null;
+  const i=Number(sel.value);
+  return Number.isInteger(i)?displayedVoices[i]||null:null;
+}
+function speak(text,onend){
+  if(!supportsSpeech())return false;
+  try{synth.cancel();}catch{}
+  const selected=chosenVoice();
+  const attempt=(voice,isFallback)=>{
+    let u;
+    try{
+      u=new SpeechSynthesisUtterance(String(text||''));
+      u.lang='pl-PL';u.rate=Number(rate.value)||0.92;u.pitch=1;u.volume=1;
+      if(voice)u.voice=voice;
+      u.onstart=()=>{setStatus((voice?'Odtwarzam: '+voice.name:'Odtwarzam domyślnym głosem systemu')+'.');};
+      u.onend=()=>{if(typeof onend==='function')onend();};
+      u.onerror=(e)=>{
+        if(!isFallback&&voice){setStatus('Wybrany głos nie odtworzył dźwięku — ponawiam próbę domyślnym głosem systemu…');attempt(null,true);return;}
+        reading=false;all.textContent='▶ Czytaj wszystkie kroki';
+        setStatus('Przeglądarka zgłosiła błąd dźwięku ('+(e&&e.error||'nieznany')+'). Sprawdź głośność Windows i wybierz „Próbka głosu” ponownie.');
+      };
+      synth.speak(u);
+      return true;
+    }catch(err){
+      if(!isFallback&&voice)return attempt(null,true);
+      setStatus('Nie udało się uruchomić dźwięku. Sprawdź wyjście audio Windows i uprawnienia przeglądarki.');
+      reading=false;all.textContent='▶ Czytaj wszystkie kroki';return false;
+    }
+  };
+  if(!selected)setStatus('Próba odtworzenia przez domyślny głos systemowy…');
+  return attempt(selected,false);
+}
+function next(){
+  if(!reading)return;
+  if(idx>=steps.length){reading=false;all.textContent='▶ Czytaj wszystkie kroki';setStatus('Koniec instrukcji.');return;}
+  const el=steps[idx];el.scrollIntoView({behavior:'smooth',block:'center'});
+  const heading=el.querySelector('h2')?.innerText||('Krok '+(idx+1));
+  const paragraph=el.querySelector('p')?.innerText||'';
+  setStatus('Przygotowuję krok '+(idx+1)+' z '+steps.length+'.');
+  const ok=speak('Krok '+(idx+1)+'. '+heading+'. '+paragraph,()=>{idx++;next();});
+  if(!ok){reading=false;all.textContent='▶ Czytaj wszystkie kroki';}
+}
+testVoice.addEventListener('click',()=>{
+  reading=false;all.textContent='▶ Czytaj wszystkie kroki';
+  setStatus('Odtwarzam próbkę dźwięku. Jeśli nic nie słychać, sprawdź głośność Windows i urządzenie wyjściowe.');
+  speak('Dzień dobry. To próbka lektora Disk Recovery PRO. Jeśli słyszysz ten komunikat, dźwięk działa. Możesz odsłuchać instrukcję krok po kroku.',null);
+});
+document.querySelectorAll('[data-read]').forEach(b=>b.addEventListener('click',()=>{
+  reading=false;all.textContent='▶ Czytaj wszystkie kroki';
+  const e=b.closest('.step');if(!e)return;
+  const heading=e.querySelector('h2')?.innerText||'Instrukcja';
+  const text=heading+'. '+(e.querySelector('p')?.innerText||'');
+  setStatus('Odtwarzam: '+heading+'.');speak(text,null);
+}));
+all.addEventListener('click',()=>{
+  if(reading){reading=false;try{synth.cancel();}catch{}all.textContent='▶ Czytaj wszystkie kroki';setStatus('Odczyt zatrzymany.');return;}
+  reading=true;idx=0;all.textContent='■ Zatrzymaj odczyt';next();
+});
+pause.addEventListener('click',()=>{
+  if(!synth)return;
+  try{if(synth.paused)synth.resume();else if(synth.speaking)synth.pause();else setStatus('Brak aktywnego odczytu. Najpierw kliknij „Próbka głosu” albo „Odsłuchaj”.');}catch{setStatus('Nie udało się zmienić stanu odtwarzania.');}
+});
+stop.addEventListener('click',()=>{reading=false;if(synth)try{synth.cancel();}catch{}all.textContent='▶ Czytaj wszystkie kroki';setStatus('Lektor zatrzymany.');});
+rate.addEventListener('input',()=>rateLabel.textContent=Number(rate.value).toFixed(2).replace('.',',')+'×');
+if(synth){synth.onvoiceschanged=load;setTimeout(load,0);setTimeout(load,300);}
+load();
+})();</script></body></html>
