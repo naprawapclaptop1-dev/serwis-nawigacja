@@ -66,6 +66,43 @@ jobs:
           fi
           echo "Known-broken v1.9.6 assets removed from draft. Release remains unpublished."
 
+      - name: Align the stable GitHub release with latest.json
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # The manifest is the stable-channel source of truth. Only promote its matching
+          # release if the downloadable EXE verifies against the manifest SHA-256.
+          MANIFEST_B64="$(gh api "repos/$REPOSITORY/contents/diskrecoverypro-updates/latest.json" --jq '.content')"
+          printf '%s' "$MANIFEST_B64" | base64 --decode > latest.json
+          CHANNEL="$(python3 -c 'import json; print(json.load(open("latest.json", encoding="utf-8")).get("channel", ""))')"
+          VERSION="$(python3 -c 'import json; print(json.load(open("latest.json", encoding="utf-8")).get("version", ""))')"
+          EXPECTED_SHA="$(python3 -c 'import json; print(json.load(open("latest.json", encoding="utf-8")).get("sha256", ""))')"
+          [[ "$CHANNEL" == "stable" ]] || { echo "Manifest channel is not stable; refusing release promotion."; exit 1; }
+          [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "Manifest version format invalid."; exit 1; }
+          [[ "$EXPECTED_SHA" =~ ^[a-fA-F0-9]{64}$ ]] || { echo "Manifest SHA-256 invalid."; exit 1; }
+          TAG="v$VERSION"
+          RELEASE_JSON="$(gh api "repos/$REPOSITORY/releases/tags/$TAG")"
+          RELEASE_ID="$(printf '%s' "$RELEASE_JSON" | python3 -c 'import json,sys; print(json.load(sys.stdin)["id"])')"
+          IS_DRAFT="$(printf '%s' "$RELEASE_JSON" | python3 -c 'import json,sys; print(str(json.load(sys.stdin).get("draft", False)).lower())')"
+          IS_PRERELEASE="$(printf '%s' "$RELEASE_JSON" | python3 -c 'import json,sys; print(str(json.load(sys.stdin).get("prerelease", False)).lower())')"
+          [[ "$IS_DRAFT" == "false" ]] || { echo "$TAG is a draft; refusing to promote it."; exit 1; }
+          ASSETS="$(gh release view "$TAG" --repo "$REPOSITORY" --json assets --jq '.assets[].name')"
+          printf '%s\n' "$ASSETS" | grep -Fxq "DiskRecoveryPRO_Setup.exe"
+          printf '%s\n' "$ASSETS" | grep -Fxq "DiskRecoveryPRO_Setup.sha256.txt"
+          mkdir -p verified-release
+          gh release download "$TAG" --repo "$REPOSITORY" --pattern "DiskRecoveryPRO_Setup.exe" --dir verified-release
+          ACTUAL_SHA="$(sha256sum verified-release/DiskRecoveryPRO_Setup.exe | awk '{print $1}')"
+          [[ "$ACTUAL_SHA" == "$EXPECTED_SHA" ]] || { echo "Installer SHA-256 does not match the stable manifest; refusing promotion."; exit 1; }
+          if [[ "$IS_PRERELEASE" == "true" ]]; then
+            gh api -X PATCH "repos/$REPOSITORY/releases/$RELEASE_ID" -F prerelease=false >/dev/null
+            echo "Promoted verified manifest release $TAG to stable."
+          else
+            echo "$TAG is already stable and matches the manifest checksum."
+          fi
+
       - name: Remove obsolete update archive from every release
         env:
           GH_TOKEN: ${{ github.token }}
