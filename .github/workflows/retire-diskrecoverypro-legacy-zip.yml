@@ -22,9 +22,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # Existing v1.9.5 client code checks the GitHub releases API before the manifest
-          # and does not filter prereleases. Hide the known-broken v1.9.6 candidate so those
-          # clients cannot automatically offer its failing installer.
           RELEASE_JSON="$(gh release view v1.9.6 --repo "$REPOSITORY" --json isDraft,isPrerelease 2>/dev/null || true)"
           if [[ -z "$RELEASE_JSON" ]]; then
             echo "v1.9.6 release not found; nothing to hide."
@@ -57,44 +54,13 @@ jobs:
             exit 1
           fi
           for asset in DiskRecoveryPRO_Setup.exe DiskRecoveryPRO_Setup.sha256.txt; do
-            if printf '%s' "$RELEASE_JSON" | python3 -c 'import json,sys; d=json.load(sys.stdin); print("\n".join(a.get("name","") for a in d.get("assets",[])))' | grep -Fxq "$asset"; then
+            if printf '%s' "$RELEASE_JSON" | python3 -c 'import json,sys; d=json.load(sys.stdin); print("\\n".join(a.get("name","") for a in d.get("assets",[])))' | grep -Fxq "$asset"; then
               echo "Retiring known-broken draft asset: $asset"
               gh release delete-asset v1.9.6 "$asset" --repo "$REPOSITORY" --yes
             fi
           done
           REMAINING="$(gh release view v1.9.6 --repo "$REPOSITORY" --json assets --jq '.assets[].name' 2>/dev/null || true)"
-          if printf '%s\n' "$REMAINING" | grep -Eq '^(DiskRecoveryPRO_Setup\.exe|DiskRecoveryPRO_Setup\.sha256\.txt)
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPOSITORY: ${{ github.repository }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          gh release list --repo "$REPOSITORY" --limit 100 --json tagName --jq '.[].tagName' > release-tags.txt
-          while IFS= read -r tag; do
-            [[ -n "$tag" ]] || continue
-            if gh release view "$tag" --repo "$REPOSITORY" --json assets --jq '.assets[].name' | grep -Fxq "DiskRecoveryPRO_Update.zip"; then
-              echo "Removing retired DiskRecoveryPRO_Update.zip from release $tag"
-              if ! gh release delete-asset "$tag" "DiskRecoveryPRO_Update.zip" --repo "$REPOSITORY" --yes; then
-                # A concurrent publisher may already have removed it; only fail if it remains.
-                if gh release view "$tag" --repo "$REPOSITORY" --json assets --jq '.assets[].name' | grep -Fxq "DiskRecoveryPRO_Update.zip"; then
-                  echo "Failed to remove legacy archive from $tag" >&2
-                  exit 1
-                fi
-              fi
-            fi
-          done < release-tags.txt
-
-          # Verify that the retired archive is no longer exposed by any existing release.
-          while IFS= read -r tag; do
-            [[ -n "$tag" ]] || continue
-            if gh release view "$tag" --repo "$REPOSITORY" --json assets --jq '.assets[].name' | grep -Fxq "DiskRecoveryPRO_Update.zip"; then
-              echo "Legacy archive remains on release $tag" >&2
-              exit 1
-            fi
-          done < release-tags.txt
-          echo "Legacy update ZIP is absent from all inspected releases."
-; then
+          if printf '%s\\n' "$REMAINING" | grep -Eq '^(DiskRecoveryPRO_Setup\\.exe|DiskRecoveryPRO_Setup\\.sha256\\.txt)$'; then
             echo "Broken v1.9.6 installer asset remains after cleanup." >&2
             exit 1
           fi
@@ -113,7 +79,6 @@ jobs:
             if gh release view "$tag" --repo "$REPOSITORY" --json assets --jq '.assets[].name' | grep -Fxq "DiskRecoveryPRO_Update.zip"; then
               echo "Removing retired DiskRecoveryPRO_Update.zip from release $tag"
               if ! gh release delete-asset "$tag" "DiskRecoveryPRO_Update.zip" --repo "$REPOSITORY" --yes; then
-                # A concurrent publisher may already have removed it; only fail if it remains.
                 if gh release view "$tag" --repo "$REPOSITORY" --json assets --jq '.assets[].name' | grep -Fxq "DiskRecoveryPRO_Update.zip"; then
                   echo "Failed to remove legacy archive from $tag" >&2
                   exit 1
@@ -122,7 +87,6 @@ jobs:
             fi
           done < release-tags.txt
 
-          # Verify that the retired archive is no longer exposed by any existing release.
           while IFS= read -r tag; do
             [[ -n "$tag" ]] || continue
             if gh release view "$tag" --repo "$REPOSITORY" --json assets --jq '.assets[].name' | grep -Fxq "DiskRecoveryPRO_Update.zip"; then
