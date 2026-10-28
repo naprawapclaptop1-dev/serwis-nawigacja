@@ -54,13 +54,13 @@ jobs:
             exit 1
           fi
           for asset in DiskRecoveryPRO_Setup.exe DiskRecoveryPRO_Setup.sha256.txt; do
-            if printf '%s' "$RELEASE_JSON" | python3 -c 'import json,sys; d=json.load(sys.stdin); print("\\n".join(a.get("name","") for a in d.get("assets",[])))' | grep -Fxq "$asset"; then
+            if printf '%s' "$RELEASE_JSON" | python3 -c 'import json,sys; d=json.load(sys.stdin); print("\n".join(a.get("name","") for a in d.get("assets",[])))' | grep -Fxq "$asset"; then
               echo "Retiring known-broken draft asset: $asset"
               gh release delete-asset v1.9.6 "$asset" --repo "$REPOSITORY" --yes
             fi
           done
           REMAINING="$(gh release view v1.9.6 --repo "$REPOSITORY" --json assets --jq '.assets[].name' 2>/dev/null || true)"
-          if printf '%s\\n' "$REMAINING" | grep -Eq '^(DiskRecoveryPRO_Setup\\.exe|DiskRecoveryPRO_Setup\\.sha256\\.txt)$'; then
+          if printf '%s\n' "$REMAINING" | grep -Eq '^(DiskRecoveryPRO_Setup\.exe|DiskRecoveryPRO_Setup\.sha256\.txt)$'; then
             echo "Broken v1.9.6 installer asset remains after cleanup." >&2
             exit 1
           fi
