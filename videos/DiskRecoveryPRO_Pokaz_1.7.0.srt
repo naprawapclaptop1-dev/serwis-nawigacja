@@ -77,3 +77,23 @@ Przed instalacją sprawdź, czy pobierasz plik z oficjalnego wydania i porównaj
 20
 00:11:34,900 --> 00:12:04,206
 Podsumowując: pobierz oficjalny instalator, zweryfikuj źródło i fizycznie osobny dysk docelowy, uruchom odpowiedni skan, przejrzyj wyniki i odzyskaj pliki na inny nośnik. Zachowaj raport i sprawdź odzyskane dokumenty. Licencje zamówisz z portalu, a administrator wystawi je po weryfikacji płatności. Dziękuję za obejrzenie przewodnika.
+
+21
+00:12:05,400 --> 00:12:08,300
+Jak zgłosić błąd? Kliknij przycisk ZGŁOŚ BŁĄD w aplikacji lub instalatorze.
+
+22
+00:12:08,300 --> 00:12:11,100
+Opisz problem i zapisz raport TXT albo bezpieczną paczkę ZIP.
+
+23
+00:12:11,100 --> 00:12:14,000
+Najpierw otworzy się domyślny program pocztowy; w razie braku aplikacji — poczta w przeglądarce.
+
+24
+00:12:14,000 --> 00:12:17,100
+Sprawdź raport i usuń dane prywatne. Nie wysyłaj haseł ani kluczy licencyjnych.
+
+25
+00:12:17,100 --> 00:12:20,200
+Wiadomość nie jest wysyłana automatycznie. Sprawdź treść i kliknij Wyślij ręcznie.
