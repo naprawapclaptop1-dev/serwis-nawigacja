@@ -116,7 +116,7 @@ jobs:
               "downloadUrl": os.environ["DOWNLOAD_URL"],
               "installerUrl": os.environ["DOWNLOAD_URL"],
               "sha256": os.environ["SHA256"],
-              "updateMode": "manual-official-release"
+              "updateMode": "verified-installer-exe"
           }
           with open("latest.json", "w", encoding="utf-8", newline="\n") as f:
               json.dump(payload, f, ensure_ascii=False, indent=2)
