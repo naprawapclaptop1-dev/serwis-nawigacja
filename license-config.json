@@ -1,7 +1,7 @@
 {
   "checkoutApi": "",
   "currency": "PLN",
-  "installerUrl": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.9.34/DiskRecoveryPRO_Setup.exe",
+  "installerUrl": "https://github.com/naprawapclaptop1-dev/serwis-nawigacja/releases/download/v1.9.35/DiskRecoveryPRO_Setup.exe",
   "plans": [
     {
       "id": "YEAR_1",
@@ -25,5 +25,7 @@
   "licenseRequestEmail": "naprawapclaptop1@gmail.com",
   "note": "Automatyczny checkout używa SumUp Hosted Checkout przez Admin/LicenseService. Przed włączeniem planów wdroż serwer HTTPS, ustaw DRP_PAYMENT_PROVIDER=sumup, SUMUP_API_KEY, SUMUP_MERCHANT_CODE, DRP_LICENSE_PRIVATE_KEY_PEM, DRP_LICENSE_SERVICE_PUBLIC_URL oraz właściwe URL-e portalu i instalatora. checkoutApi i checkoutEnabled pozostają wyłączone, dopóki prawdziwy serwer z sekretami nie zostanie wdrożony. Statyczne linki SumUp/QR nie potwierdzają automatycznie zamówienia.",
   "checkoutProvider": "sumup-hosted-checkout",
-  "automaticLicenseDelivery": true
+  "automaticLicenseDelivery": true,
+  "reviewsApiUrl": "",
+  "reviewsNote": "Publiczne opinie wymagają wdrożonego serwera LicenseService z endpointem /api/app-reviews. Puste pole oznacza, że formularz publiczny pozostaje zablokowany — nie pokazujemy fikcyjnych ocen."
 }
