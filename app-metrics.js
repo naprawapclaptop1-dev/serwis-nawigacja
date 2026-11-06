@@ -1,7 +1,7 @@
 (()=>{
 'use strict';
 const REPO='naprawapclaptop1-dev/serwis-nawigacja';
-const CACHE_KEY='drp.portal.metrics.v2';
+const CACHE_KEY='drp.portal.metrics.v3';
 const CACHE_TTL=15*60*1000;
 const byId=id=>document.getElementById(id);
 const number=value=>new Intl.NumberFormat('pl-PL').format(value);
@@ -16,6 +16,9 @@ function compareTags(a,b){
 function installerAsset(release){
   return (release.assets||[]).find(asset=>String(asset.name||'').toLowerCase()==='diskrecoverypro_setup.exe' && /^https:\/\/github\.com\//i.test(asset.browser_download_url||''));
 }
+function installerHashAsset(release){
+  return (release.assets||[]).find(asset=>String(asset.name||'').toLowerCase()==='diskrecoverypro_setup.sha256.txt' && /^https:\/\/github\.com\//i.test(asset.browser_download_url||''));
+}
 function showMetrics(data,stale=false){
   set('installerDownloads',number(data.total));
   set('latestDownloads',data.latest?number(data.latest.count)+' · '+data.latest.tag:'Brak publicznego instalatora');
@@ -25,6 +28,13 @@ function showMetrics(data,stale=false){
       link.href=data.latest.url;
       link.setAttribute('data-release-tag',data.latest.tag);
       link.setAttribute('aria-label','Pobierz oficjalny instalator Disk Recovery PRO '+data.latest.tag);
+    }
+  }
+  if(data.latest&&data.latest.shaUrl){
+    for(const link of document.querySelectorAll('[data-download-sha256]')){
+      link.href=data.latest.shaUrl;
+      link.setAttribute('data-release-tag',data.latest.tag);
+      link.setAttribute('aria-label','Sprawdź SHA-256 instalatora Disk Recovery PRO '+data.latest.tag);
     }
   }
 }
@@ -54,8 +64,8 @@ async function loadDownloads(){
     stable.sort((a,b)=>compareTags(b.tag_name,a.tag_name));
     let total=0;
     for(const release of stable){const asset=installerAsset(release);total+=Math.max(0,Number(asset.download_count)||0);}
-    const latestRelease=stable[0]||null;const latestAsset=latestRelease?installerAsset(latestRelease):null;
-    const data={total,latest:latestRelease&&latestAsset?{tag:latestRelease.tag_name,count:Math.max(0,Number(latestAsset.download_count)||0),url:latestAsset.browser_download_url}:null,savedAt:Date.now()};
+    const latestRelease=stable[0]||null;const latestAsset=latestRelease?installerAsset(latestRelease):null;const latestHash=latestRelease?installerHashAsset(latestRelease):null;
+    const data={total,latest:latestRelease&&latestAsset?{tag:latestRelease.tag_name,count:Math.max(0,Number(latestAsset.download_count)||0),url:latestAsset.browser_download_url,shaUrl:latestHash?latestHash.browser_download_url:''}:null,savedAt:Date.now()};
     showMetrics(data,false);try{localStorage.setItem(CACHE_KEY,JSON.stringify(data));}catch(_){}
   }catch(_){
     if(old)return;
