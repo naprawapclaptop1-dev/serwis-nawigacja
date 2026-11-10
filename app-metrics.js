@@ -89,13 +89,38 @@ async function loadReviews(api){
   try{
     const response=await fetch(api+'/api/app-reviews?appId=disk-recovery-pro',{headers:{Accept:'application/json'},cache:'no-store'});
     if(!response.ok)throw new Error('HTTP '+response.status);const result=await response.json();
-    set('reviewSummary',result.count?('Średnia '+Number(result.average).toFixed(2).replace('.',',')+'/5 · '+number(result.count)+' zatwierdzonych opinii'):'Brak zatwierdzonych opinii');
+    const average=Number(result.average)||0;const filled=Math.max(0,Math.min(5,Math.round(average)));const stars='★'.repeat(filled)+'☆'.repeat(5-filled);
+    set('reviewSummary',result.count?(stars+' '+average.toFixed(2).replace('.',',')+'/5 · '+number(result.count)+' zatwierdzonych opinii'):'Brak zatwierdzonych opinii');
     list.replaceChildren();for(const review of (result.reviews||[]).slice(0,30))list.append(renderReview(review));
     if(!list.childElementCount){const empty=document.createElement('p');empty.className='note';empty.textContent='Nie ma jeszcze zatwierdzonych opinii. Możesz dodać pierwszą ocenę.';list.append(empty);}
     set('reviewStatus','Opinie są moderowane przed publikacją.');if(submit)submit.disabled=false;
   }catch(_){set('reviewSummary','Opinie chwilowo niedostępne.');set('reviewStatus','Serwer opinii jest chwilowo niedostępny.');if(submit)submit.disabled=true;}
 }
+function initStarPicker(){
+  const group=byId('reviewRatingStars');const hidden=byId('reviewRating');const valueLabel=byId('reviewRatingValue');
+  if(!group||!hidden)return {reset:()=>{}};
+  const buttons=Array.from(group.querySelectorAll('button[data-rating]'));
+  let selected=Math.max(1,Math.min(5,Number(hidden.value)||5));
+  function update(next,focus=false){
+    selected=Math.max(1,Math.min(5,Number(next)||5));hidden.value=String(selected);
+    for(const button of buttons){const score=Number(button.dataset.rating)||0;const active=score<=selected;button.textContent=active?'★':'☆';button.classList.toggle('selected',active);button.setAttribute('aria-checked',String(score===selected));button.setAttribute('aria-label',score===1?'1 gwiazdka':score<5?score+' gwiazdki':'5 gwiazdek');button.tabIndex=score===selected?0:-1;}
+    if(valueLabel)valueLabel.textContent='Wybrano '+selected+' z 5 gwiazdek';
+    if(focus){const target=buttons.find(x=>Number(x.dataset.rating)===selected);if(target)target.focus();}
+  }
+  for(const button of buttons){
+    button.addEventListener('click',()=>update(Number(button.dataset.rating)));
+    button.addEventListener('keydown',event=>{
+      let next=selected;
+      if(event.key==='ArrowRight'||event.key==='ArrowUp')next=Math.min(5,selected+1);
+      else if(event.key==='ArrowLeft'||event.key==='ArrowDown')next=Math.max(1,selected-1);
+      else if(event.key==='Home')next=1;else if(event.key==='End')next=5;else return;
+      event.preventDefault();update(next,true);
+    });
+  }
+  update(selected);return {reset:()=>update(5)};
+}
 async function init(){
+  const starPicker=initStarPicker();
   loadDownloads();
   let config={};try{const r=await fetch('./license-config.json',{cache:'no-store'});if(r.ok)config=await r.json();}catch(_){}
   const candidate=String(config.reviewsApiUrl||config.checkoutApi||'').trim().replace(/\/+$/,'');
@@ -113,7 +138,7 @@ async function init(){
     try{
       const response=await fetch(api+'/api/app-reviews',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({appId:'disk-recovery-pro',nickname,rating,text,publicConsent:consent,website})});
       const data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.error||data.detail||('HTTP '+response.status));
-      form.reset();form.dataset.openedAt=String(Date.now());set('reviewStatus','Dziękujemy. Opinia została przyjęta i oczekuje na moderację.');
+      form.reset();starPicker.reset();form.dataset.openedAt=String(Date.now());set('reviewStatus','Dziękujemy. Opinia została przyjęta i oczekuje na moderację.');
     }catch(error){set('reviewStatus','Nie udało się wysłać opinii: '+error.message);}
     finally{if(button)button.disabled=false;}
   });}
